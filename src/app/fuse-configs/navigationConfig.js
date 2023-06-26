@@ -44,9 +44,9 @@ const navigationConfig = [
   {
     id: 'zonificacion',
     title: 'ZONIFICACIÓN',
-    type: 'collapse',
+    type: 'item',
     icon: 'view_quilt',
-    children: []
+    url: 'apps/zonificacion',
   },
   {
     id: 'frecuencias',

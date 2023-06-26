@@ -1,3 +1,69 @@
+// import Icon from '@mui/material/Icon';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import { motion } from 'framer-motion';
+// import { useSelector } from 'react-redux';
+// import { selectFileById } from './store/filesSlice';
+// import Button from '@mui/material/Button'
+
+
+// function DetailSidebarHeader(props) {
+//   const selectedItem = useSelector((state) =>
+//     selectFileById(state, state.fileManagerApp.files.selectedItemId)
+//   );
+
+//   if (!selectedItem) {
+//     return null;
+//   }
+
+//   return (
+//     <div className="flex flex-col justify-between h-full p-4 sm:p-12"
+//     style={{backgroundColor: '#57998f'}}
+//     >
+//       <div className="toolbar flex align-center justify-start border-1 border-red">
+//         <motion.div className='flex flex-row items-center'>
+//           <IconButton size="large">
+//             <Icon>view_quilt</Icon>
+//           </IconButton>
+//           <Typography variant="subtitle1" color="white">ZONIFICACIONES</Typography>
+//         </motion.div>
+//       </div>
+
+//       <div className="p-12">
+//         <motion.div className='flex flex-1 justify-between'>
+//           <div>
+//             <Button variant="contained" color="primary" type='button' sx={{mx: 1}}>
+//               NUEVO
+//             </Button>
+//             <Button variant="contained" color="primary" type='button' sx={{mx: 1}}>
+//               BORRAR
+//             </Button>
+//           </div>
+//           <div>
+//             <Button variant="contained" color="primary" type='button' sx={{mx: 1}}>
+//               EDITAR
+//             </Button>
+//             <Button variant="contained" color="primary" type='button' sx={{mx: 1}}>
+//               GUARDAR
+//             </Button>
+//             <Button variant="contained" color="primary" type='button' sx={{mx: 1}}>
+//               CANCELAR
+//             </Button>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default DetailSidebarHeader;
+
+
+
+
+
+
+
 import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -50,3 +116,4 @@ function DetailSidebarHeader(props) {
 }
 
 export default DetailSidebarHeader;
+

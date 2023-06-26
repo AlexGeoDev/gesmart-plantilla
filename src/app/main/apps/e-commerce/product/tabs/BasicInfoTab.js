@@ -53,7 +53,6 @@ function BasicInfoTab(props) {
         render={({ field: { onChange, value } }) => (
           <Autocomplete
             className="mt-8 mb-16"
-            // sx={{border: '1px red solid'}}
             multiple
             freeSolo
             options={[]}

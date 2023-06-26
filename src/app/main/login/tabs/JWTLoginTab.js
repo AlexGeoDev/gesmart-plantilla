@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitLogin } from 'app/auth/store/loginSlice';
 import * as yup from 'yup';
 import _ from '@lodash';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Form Validation Schema
@@ -30,7 +30,11 @@ const defaultValues = {
 
 function JWTLoginTab(props) {
   const dispatch = useDispatch();
-  const login = useSelector(({ auth }) => auth.login);
+  const navigate = useNavigate();
+  const login = useSelector(({ auth }) => auth.login,
+    // navigate('/login')
+
+  );
   const { control, setValue, formState, handleSubmit, reset, trigger, setError } = useForm({
     mode: 'onChange',
     defaultValues,
@@ -117,68 +121,18 @@ function JWTLoginTab(props) {
           )}
         />
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className="w-full mx-auto mt-16"
-          aria-label="LOG IN"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
-          value="legacy"
-        >
-          Login
-        </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="w-full mx-auto my-16"
+            aria-label="LOG IN"
+            disabled={_.isEmpty(dirtyFields) || !isValid}
+            value="legacy"
+          >
+            Login
+          </Button>
       </form>
-
-      <table className="w-full mt-32 text-center">
-        <thead className="mb-4">
-          <tr>
-            <th>
-              <Typography className="font-semibold text-11" color="textSecondary">
-                Role
-              </Typography>
-            </th>
-            <th>
-              <Typography className="font-semibold text-11" color="textSecondary">
-                Email
-              </Typography>
-            </th>
-            <th>
-              <Typography className="font-semibold text-11" color="textSecondary">
-                Password
-              </Typography>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <Typography className="font-medium text-11" color="textSecondary">
-                Admin
-              </Typography>
-            </td>
-            <td>
-              <Typography className="text-11">admin@fusetheme.com</Typography>
-            </td>
-            <td>
-              <Typography className="text-11">admin</Typography>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Typography className="font-medium text-11" color="textSecondary">
-                Staff
-              </Typography>
-            </td>
-            <td>
-              <Typography className="text-11">staff@fusetheme.com</Typography>
-            </td>
-            <td>
-              <Typography className="text-11">staff</Typography>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   );
 }

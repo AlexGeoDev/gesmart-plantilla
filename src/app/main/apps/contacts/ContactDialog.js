@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import FuseUtils from '@fuse/utils/FuseUtils';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AppBar from '@mui/material/AppBar';
@@ -25,21 +26,27 @@ import {
   closeNewContactDialog,
   closeEditContactDialog,
 } from './store/contactsSlice';
+import { Autocomplete, Chip, MenuItem, Select } from '@mui/material';
 
 const defaultValues = {
   id: '',
   name: '',
-  lastName: '',
-  avatar: 'assets/images/avatars/profile.jpg',
-  nickname: '',
-  company: '',
-  jobTitle: '',
+  // lastName: '',
+  // avatar: 'assets/images/avatars/profile.jpg',
+  // nickname: '',
+  perfil: '',
+  // jobTitle: '',
   email: '',
-  phone: '',
-  address: '',
-  birthday: '',
-  notes: '',
+  proyectos: '',
+  // address: '',
+  // birthday: '',
+  // notes: '',
 };
+
+const options = [
+  { value: 'Administrador' },
+  { value: 'Usuario' },
+];
 
 /**
  * Form Validation Schema
@@ -51,6 +58,11 @@ const schema = yup.object().shape({
 function ContactDialog(props) {
   const dispatch = useDispatch();
   const contactDialog = useSelector(({ contactsApp }) => contactsApp.contacts.contactDialog);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
     mode: 'onChange',
@@ -135,20 +147,12 @@ function ContactDialog(props) {
       fullWidth
       maxWidth="xs"
     >
-      <AppBar position="static" elevation={0}>
+      <AppBar position="static" elevation={0} sx={{backgroundColor: '#ffffff'}}>
         <Toolbar className="flex w-full">
-          <Typography variant="subtitle1" color="inherit">
-            {contactDialog.type === 'new' ? 'New Contact' : 'Edit Contact'}
+          <Typography variant="h4" color="#000000" sx={{mt:1}}>
+            {contactDialog.type === 'new' ? 'Nuevo usuario' : 'Edit Contact'}
           </Typography>
         </Toolbar>
-        <div className="flex flex-col items-center justify-center pb-24">
-          <Avatar className="w-96 h-96" alt="contact avatar" src={avatar} />
-          {contactDialog.type === 'edit' && (
-            <Typography variant="h6" color="inherit" className="pt-8">
-              {name}
-            </Typography>
-          )}
-        </div>
       </AppBar>
       <form
         noValidate
@@ -157,9 +161,6 @@ function ContactDialog(props) {
       >
         <DialogContent classes={{ root: 'p-24' }}>
           <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">account_circle</Icon>
-            </div>
             <Controller
               control={control}
               name="name"
@@ -167,7 +168,7 @@ function ContactDialog(props) {
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Name"
+                  label="Nombre de usuario"
                   id="name"
                   error={!!errors.name}
                   helperText={errors?.name?.message}
@@ -180,68 +181,6 @@ function ContactDialog(props) {
           </div>
 
           <div className="flex">
-            <div className="min-w-48 pt-20" />
-
-            <Controller
-              control={control}
-              name="lastName"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Last name"
-                  id="lastName"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">star</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="nickname"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Nickname"
-                  id="nickname"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">phone</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="phone"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Phone"
-                  id="phone"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">email</Icon>
-            </div>
             <Controller
               control={control}
               name="email"
@@ -258,116 +197,95 @@ function ContactDialog(props) {
             />
           </div>
 
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">domain</Icon>
-            </div>
+          <div className="flex flex-col">
+            <Typography variant="body1" color="initial" sx={{mb:1}}>
+              Perfil
+            </Typography>
             <Controller
+              name="perfil"
               control={control}
-              name="company"
+              render={({ field: { onChange, value: formPerfilVal } }) => (
+                <Select
+                  id="perfil-select"
+                  value={formPerfilVal}
+                  defaultValue={'Administrador'}
+                  onChange={(event) => onChange(event.target.value)}
+                >
+                  {options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.value}
+                    </MenuItem>
+                  ))}
+                </Select>
+                )}
+              />
+          </div>
+
+          <div>
+            <Typography variant="body1" color="initial" sx={{my:1}}>
+              Proyectos
+            </Typography>
+            <Controller 
+              name='projects'
+              control={control}
               render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Company"
-                  id="company"
-                  variant="outlined"
-                  fullWidth
+                <Autocomplete
+                  multiple
+                  id='tags-filled'
+                  options={projects.map((item) => item.value)}
+                  defaultValue={[projects[0].value]}
+                  filterSelectedOptions
+                  renderTags={(value, getTagProps) => 
+                    value.map((option, index) => (
+                      <Chip
+                        variant='outlined'
+                        label={option}
+                        {...getTagProps({ index })}
+                      />
+                    ))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Selecione los proyectos"
+                    />
+                  )}                
                 />
               )}
             />
           </div>
 
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">work</Icon>
+          <div className="mb-16">
+              <div className="flex items-center justify-start p-12">
+                <Typography variant="body1" color="initial">
+                  Estado
+                </Typography>
+                <div className="flex">
+                  <Controller
+                    name="completed"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <IconButton
+                        tabIndex={-1}
+                        disableRipple
+                        onClick={(ev) => onChange(!value)}
+                        size="large"
+                      >
+                        {value ? (
+                          <Icon color="secondary">check_circle</Icon>
+                        ) : (
+                          <Icon color="action">radio_button_unchecked</Icon>
+                        )}
+                      </IconButton>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
-            <Controller
-              control={control}
-              name="jobTitle"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Job title"
-                  id="jobTitle"
-                  name="jobTitle"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">cake</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="birthday"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  id="birthday"
-                  label="Birthday"
-                  type="date"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">home</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="address"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Address"
-                  id="address"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">note</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="notes"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Notes"
-                  id="notes"
-                  variant="outlined"
-                  multiline
-                  rows={5}
-                  fullWidth
-                />
-              )}
-            />
-          </div>
         </DialogContent>
 
         {contactDialog.type === 'new' ? (
-          <DialogActions className="justify-between p-4 pb-16">
+          <DialogActions className="justify-around p-4 pb-16 mb-8">
             <div className="px-16">
               <Button
                 variant="contained"
@@ -375,7 +293,18 @@ function ContactDialog(props) {
                 type="submit"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Add
+                Aceptar
+              </Button>
+            </div>
+            <div className="px-16">
+              <Button
+                variant="contained"
+                color="error"
+                type="button"
+                disabled={false}
+                onClick={(ev) => dispatch(closeComposeDialog())}
+              >
+                Cancelar
               </Button>
             </div>
           </DialogActions>
@@ -402,3 +331,12 @@ function ContactDialog(props) {
 }
 
 export default ContactDialog;
+
+const projects = [
+  { value: 'Projecto Bogotá' },
+  { value: 'Proyecto Villavicencio'},
+  { value: 'Proyecto Madrid' },
+  { value: 'Proyecto Valencia' },
+  { value: 'Proyecto Medellin' },
+  { value: 'Proyecto x' },
+];

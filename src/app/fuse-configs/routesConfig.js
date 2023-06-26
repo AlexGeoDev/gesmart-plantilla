@@ -5,7 +5,7 @@ import appsConfigs from 'app/main/apps/appsConfigs';
 // import DocumentationConfig from 'app/main/documentation/DocumentationConfig';
 import LoginConfig from 'app/main/login/LoginConfig';
 import LogoutConfig from 'app/main/logout/LogoutConfig';
-// import pagesConfigs from 'app/main/pages/pagesConfigs';
+import pagesConfigs from 'app/main/pages/pagesConfigs';
 // import RegisterConfig from 'app/main/register/RegisterConfig';
 // import UserInterfaceConfig from 'app/main/user-interface/UserInterfaceConfig';
 import FuseLoading from '@fuse/core/FuseLoading';
@@ -13,7 +13,7 @@ import { Navigate } from 'react-router-dom';
 
 const routeConfigs = [
   ...appsConfigs,
-  // ...pagesConfigs,
+  ...pagesConfigs,
   // ...authRoleExamplesConfigs,
   // UserInterfaceConfig,
   // DocumentationConfig,
@@ -31,7 +31,7 @@ const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, null),
   {
     path: '/',
-    element: <Navigate to="apps/dashboards/analytics" />,
+    element: <Navigate to="apps/zonificacion" />,
   },
   {
     path: 'loading',

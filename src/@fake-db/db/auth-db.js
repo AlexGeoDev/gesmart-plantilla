@@ -55,7 +55,7 @@ const authDB = {
 		{
 			uuid: 'XgbuVEXBU6gtSKdbTYR1Zbbby1i3',
 			from: 'custom-db',
-			password: 'staff',
+			password: 'staff1',
 			role: 'staff',
 			data: {
 				displayName: 'Arnold Matlock',

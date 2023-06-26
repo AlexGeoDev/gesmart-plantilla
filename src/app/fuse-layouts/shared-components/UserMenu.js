@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
@@ -5,18 +7,17 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { logoutUser } from 'app/auth/store/userSlice';
+import ZonificacionApp from 'app/main/apps/zonificacion/ZonificacionApp';
 
-function UserMenu(props) {
+const UserMenu = () => {
+  const [userMenu, setUserMenu] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(({ auth }) => auth.user);
   const navigate = useNavigate();
-
-  const [userMenu, setUserMenu] = useState(null);
+  const location = useLocation();
 
   const userMenuClick = (event) => {
     setUserMenu(event.currentTarget);
@@ -24,6 +25,15 @@ function UserMenu(props) {
 
   const userMenuClose = () => {
     setUserMenu(null);
+  };
+
+  const handleOpenModal = () => {
+    if (location.pathname === '/apps/zonificacion') {
+      setUserMenu(null);
+      ZonificacionApp.openModal();
+    } else {
+      navigate('/apps/zonificacion');
+    }
   };
 
   return (
@@ -83,11 +93,11 @@ function UserMenu(props) {
           </>
         ) : (
           <>
-            <MenuItem component={Link} to="/pages/profile" onClick={userMenuClose} role="button">
+            <MenuItem onClick={handleOpenModal} role="button">
               <ListItemIcon className="min-w-40">
-                <Icon>account_circle</Icon>
+                <Icon>work_outline</Icon>
               </ListItemIcon>
-              <ListItemText primary="My Profile" />
+              <ListItemText primary="Proyectos" />
             </MenuItem>
             <MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
@@ -96,6 +106,8 @@ function UserMenu(props) {
               <ListItemText primary="Inbox" />
             </MenuItem>
             <MenuItem
+              component={Link}
+              to="/login"
               onClick={() => {
                 dispatch(logoutUser());
                 userMenuClose();
@@ -111,6 +123,6 @@ function UserMenu(props) {
       </Popover>
     </>
   );
-}
+};
 
 export default UserMenu;

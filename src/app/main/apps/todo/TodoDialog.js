@@ -4,20 +4,15 @@ import { Controller, useForm } from 'react-hook-form';
 import FuseUtils from '@fuse/utils';
 import _ from '@lodash';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import { amber, red } from '@mui/material/colors';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
@@ -33,21 +28,15 @@ import {
   closeEditTodoDialog,
   updateTodo,
 } from './store/todosSlice';
+import { Select } from '@mui/material';
+import { CookieRounded } from '@mui/icons-material';
 
 
-const activities = [
-  {
-    value: 'activity1',
-    label: 'Limpieza y recogida',
-  },
-  {
-    value: 'activity2',
-    label: 'Entrega',
-  },
-  {
-    value: 'activity3',
-    label: 'Ruteo',
-  },  
+const options = [
+  { value: 'Recogida' },
+  { value: 'Limpieza' },
+  { value: 'Recogida y Limpieza' },
+  { value: 'Zonas verdes y Jardinería' }
 ];
 
 const defaultValues = {
@@ -55,10 +44,7 @@ const defaultValues = {
   title: '',
   notes: '',
   startDate: new Date(),
-  // dueDate: new Date(),
   completed: false,
-  // starred: false,
-  // important: false,
   deleted: false,
   labels: [],
   usuarios: [], // Added usuarios field with an empty array
@@ -82,6 +68,16 @@ function TodoDialog(props) {
     defaultValues,
     resolver: yupResolver(schema),
   });
+
+  const [selectedLabel, setSelectedLabel] = useState(null);
+  const handleMenuClick = (ev) => {
+    setLabelMenuEl(ev.currentTarget);
+  };
+
+  const handleMenuItemClick = (label) => {
+    setSelectedLabel(label);
+    setLabelMenuEl(null);
+  };
 
   const { errors, isValid, dirtyFields } = formState;
   const formId = watch('id');
@@ -212,52 +208,24 @@ function TodoDialog(props) {
 
             <div>
               <Typography variant="body1" color="initial">
-                Actividades
+                Tipología
               </Typography>
-              <IconButton
-                aria-owns={labelMenuEl ? 'label-menu' : null}
-                aria-haspopup="true"
-                onClick={(ev) => setLabelMenuEl(ev.currentTarget)}
-                size="large"
-              >
-                <Icon>label</Icon>
-              </IconButton>
               <Controller
-                name="labels"
+                name="label"
                 control={control}
                 render={({ field: { onChange, value: formLabelsVal } }) => (
-                  <Menu
-                    id="label-menu"
-                    anchorEl={labelMenuEl}
-                    open={Boolean(labelMenuEl)}
-                    onClose={() => setLabelMenuEl(null)}
+                  <Select
+                    id="label-select"
+                    value={formLabelsVal}
+                    defaultValue={'Recogida'}
+                    onChange={(event) => onChange(event.target.value)}
                   >
-                    {labels.length > 0 &&
-                      labels.map((label) => (
-                        <MenuItem
-                          onClick={(ev) => onChange(_.xor(formLabelsVal, [label.id]))}
-                          key={label.id}
-                        >
-                          <ListItemIcon className="min-w-24">
-                            <Icon color="action">
-                              {formLabelsVal.includes(label.id)
-                                ? 'check_box'
-                                : 'check_box_outline_blank'}
-                            </Icon>
-                          </ListItemIcon>
-                          <ListItemText
-                            className="mx-8"
-                            primary={label.title}
-                            disableTypography
-                          />
-                          <ListItemIcon className="min-w-24">
-                            <Icon style={{ color: label.color }} color="action">
-                              label
-                            </Icon>
-                          </ListItemIcon>
-                        </MenuItem>
-                      ))}
-                  </Menu>
+                    {options.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.value}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 )}
               />
             </div>
@@ -272,37 +240,38 @@ function TodoDialog(props) {
               />
             </FormControl>
 
-            <div className="flex -mx-4">
-              <Controller
-                name="usuario"
-                control={control}
-                defaultValue={[]}
-                render={({ field: { onChange, value } }) => (
-                  <Autocomplete
-                    className="mt-8 mb-16"
-                    multiple
-                    freeSolo
-                    options={[]}
-                    value={value}
-                    onChange={(event, newValue) => {
-                      onChange(newValue);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder="Select multiple users"
-                        // label="Users"
-                        variant="outlined"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        fullWidth
+            <Typography variant="body1" color="initial">
+              Usuarios
+            </Typography>
+            <Controller 
+              name='users'
+              control={control}
+              render={({ field }) => (
+                <Autocomplete 
+                  multiple
+                  id='tags-filled'
+                  options={users.map((item) => item.value)}
+                  defaultValue={[users[0].value]}
+                  filterSelectedOptions
+                  renderTags={(value, getTagProps) => 
+                    value.map((option, index) => (
+                      <Chip 
+                        variant='outlined'
+                        label={option}
+                        {...getTagProps({ index })}
                       />
-                    )}
-                  />
-                )}
-              />
-            </div>
+                    ))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Selecione los usuarios"
+                    />
+                  )}                
+                />
+              )}
+            />
+
             <div className="mb-16">
               <div className="flex items-center justify-between p-12">
                 <Typography variant="body1" color="initial">
@@ -331,7 +300,6 @@ function TodoDialog(props) {
               </div>
             </div>
           </div>
-
         </DialogContent>
 
         {todoDialog.type === 'new' ? (
@@ -371,3 +339,11 @@ function TodoDialog(props) {
 
 export default TodoDialog;
 
+const users = [
+  { value: 'Administrador1' },
+  { value: 'Administrador2'},
+  { value: 'Usuario1' },
+  { value: 'Usuario2' },
+  { value: 'Usuario3' },
+  { value: 'Usuario4' },
+];

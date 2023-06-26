@@ -59,9 +59,9 @@ function ContactsMultiSelectMenu(props) {
             }}
           >
             <ListItemIcon className="min-w-40">
-              <Icon>star</Icon>
+              <Icon color="action">radio_button_unchecked</Icon>
             </ListItemIcon>
-            <ListItemText primary="Starred" />
+            <ListItemText primary="Inactivos" />
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -70,9 +70,9 @@ function ContactsMultiSelectMenu(props) {
             }}
           >
             <ListItemIcon className="min-w-40">
-              <Icon>star_border</Icon>
+              <Icon color="secondary">check_circle</Icon>
             </ListItemIcon>
-            <ListItemText primary="Unstarred" />
+            <ListItemText primary="Activos" />
           </MenuItem>
         </MenuList>
       </Menu>

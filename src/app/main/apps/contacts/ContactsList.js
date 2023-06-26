@@ -35,48 +35,13 @@ function ContactsList(props) {
             )
           );
         },
-        accessor: 'avatar',
-        Cell: ({ row }) => {
-          return <Avatar className="mx-8" alt={row.original.name} src={row.original.avatar} />;
-        },
+        accessor: 'Avatar',
         className: 'justify-center',
         width: 64,
         sortable: false,
       },
       {
-        Header: 'First Name',
-        accessor: 'name',
-        className: 'font-medium',
-        sortable: true,
-      },
-      {
-        Header: 'Last Name',
-        accessor: 'lastName',
-        className: 'font-medium',
-        sortable: true,
-      },
-      {
-        Header: 'Company',
-        accessor: 'company',
-        sortable: true,
-      },
-      {
-        Header: 'Job Title',
-        accessor: 'jobTitle',
-        sortable: true,
-      },
-      {
-        Header: 'Email',
-        accessor: 'email',
-        sortable: true,
-      },
-      {
-        Header: 'Phone',
-        accessor: 'phone',
-        sortable: true,
-      },
-      {
-        id: 'action',
+        id: 'state',
         width: 128,
         sortable: false,
         Cell: ({ row }) => (
@@ -89,11 +54,41 @@ function ContactsList(props) {
               size="large"
             >
               {user.starred && user.starred.includes(row.original.id) ? (
-                <Icon className="text-yellow-700">star</Icon>
+                <Icon color="action">radio_button_unchecked</Icon>
               ) : (
-                <Icon>star_border</Icon>
+                <Icon color="secondary">check_circle</Icon>
               )}
             </IconButton>
+          </div>
+        )
+      },
+      {
+        Header: 'First Name',
+        accessor: 'name',
+        className: 'font-medium',
+        sortable: true,
+      },
+      {
+        Header: 'Email',
+        accessor: 'email',
+        sortable: true,
+      },
+      {
+        Header: 'Proyectos',
+        accessor: 'projects',
+        sortable: true,
+      },
+      {
+        Header: 'Perfil',
+        accessor: 'perfil',
+        sortable: true,
+      },
+      {
+        id: 'action',
+        width: 128,
+        sortable: false,
+        Cell: ({ row }) => (
+          <div className="flex items-center">
             <IconButton
               onClick={(ev) => {
                 ev.stopPropagation();

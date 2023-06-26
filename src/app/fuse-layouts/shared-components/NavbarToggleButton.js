@@ -17,6 +17,7 @@ function NavbarToggleButton(props) {
   return (
     <IconButton
       className={props.className}
+      sx={{pl: 1}}
       color="inherit"
       size="small"
       onClick={(ev) => {

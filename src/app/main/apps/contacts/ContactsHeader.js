@@ -16,7 +16,7 @@ function ContactsHeader(props) {
   const mainTheme = useSelector(selectMainTheme);
 
   return (
-    <div className="flex flex-1 items-center justify-between p-4 sm:p-24">
+    <div className="flex flex-1 items-center justify-between p-4 sm:p-24" style={{backgroundColor: '#57998f'}}>
       <div className="flex shrink items-center sm:w-224">
         <Hidden lgUp>
           <IconButton
@@ -37,7 +37,7 @@ function ContactsHeader(props) {
             animate={{ scale: 1, transition: { delay: 0.2 } }}
             className="text-24 md:text-32"
           >
-            account_box
+            group
           </Icon>
           <Typography
             component={motion.span}
@@ -46,7 +46,7 @@ function ContactsHeader(props) {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Contacts
+            Usuarios
           </Typography>
         </div>
       </div>

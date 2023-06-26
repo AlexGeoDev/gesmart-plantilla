@@ -106,7 +106,7 @@ function FuseNavVerticalCollapse(props) {
             onClick={(ev) => ev.preventDefault()}
             size="large"
           >
-            <Icon className="text-16 arrow-icon" color="inherit">
+            <Icon className="text-16 arrow-icon" style={{color: 'white'}}> 
               {open ? 'expand_less' : 'expand_more'}
             </Icon>
           </IconButton>

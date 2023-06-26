@@ -42,13 +42,14 @@ function NavbarStyle1Content(props) {
       <AppBar
         color="primary"
         position="static"
-        className="flex flex-row items-center shrink h-48 md:h-64 min-h-48 md:min-h-64 px-12 shadow-0"
+        sx={{backgroundColor: '#434444'}}
+        className="flex flex-row justify-around items-center shrink h-48 md:h-64 min-h-48 md:min-h-64 shadow-0"
       >
-        <div className="flex flex-1 mx-4">
+        <div>
           <Logo />
         </div>
 
-        <NavbarToggleButton className="w-40 h-40 p-0" />
+        <NavbarToggleButton className="w-40 h-40" />
       </AppBar>
 
       <StyledContent option={{ suppressScrollX: true, wheelPropagation: false }}>

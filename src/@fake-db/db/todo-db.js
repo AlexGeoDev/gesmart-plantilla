@@ -5,8 +5,9 @@ const todoDB = {
 		{
 			id: '561551bd7fe2ff461101c192',
 			title: 'Proyecto Madrid',
-			notes: 'Limpieza y recogida.',
-			description: "Ámbito",
+			notes: 'Prueba de notas ',
+			description: "Bogotá",
+			users: ['Administrador', 'Usuario1'],
 			usuarios: [1],
 			startDate: new Date(2018, 8, 3),
 			dueDate: new Date(2018, 8, 5),
@@ -14,59 +15,67 @@ const todoDB = {
 			state: false,
 			important: false,
 			deleted: false,
-			labels: [1]
+			label: 'Limpieza',
 		},
 		{
 			id: '561551bd4ac1e7eb77a3a750',
 			title: 'Proyecto Villavicencio',
-			notes: 'Limpieza y recogida.',
-			// usuario: 'Usuario2',
+			notes: 'Prueba de notas',
+			description: "Madrid",
+			users: ['Administrador'],
+			usuarios: [2],
 			startDate: new Date(2018, 4, 3),
 			dueDate: new Date(2018, 4, 5),
 			completed: false,
 			state: false,
 			important: true,
 			deleted: false,
-			labels: [1, 2]
+			label: 'Limpieza',
 		},	
 		{
 			id: '561551bd917bfec2ddef2d49',
 			title: 'Proyecto Barcelona',
-			notes: 'Limpieza y recogida.',
-			// usuario: 'Usuario3',
+			notes: 'Prueba de notas',
+			description: "Villavicencio",
+			users: ['Usuario1', 'Usuario2'],
+			usuarios: [3, 4],
 			startDate: new Date(2018, 5, 3),
 			dueDate: new Date(2018, 5, 5),
 			completed: false,
 			state: true,
 			important: true,
 			deleted: false,
-			labels: [1]
+			label: 'Recogida',
 		},
 		{
 			id: '561551bdeeb2fd6877e18c29',
 			title: 'Proyecto Bogotá',
-			notes: 'Ruteo',
-			// usuario: 'Usuario4',
+			notes: 'Prueba de notas',
+			description: "Barcelona",
+			users: [],
+			usuarios: [4],
 			startDate: new Date(2018, 9, 3),
 			dueDate: new Date(2018, 9, 5),
 			completed: true,
 			state: true,
 			important: false,
 			deleted: false,
-			labels: [2]
+			label: 'Recogida y Limpieza',
 		},
 		{
 			id: '561551bdf38eae0134ae43d4',
 			title: 'Proyecto Valle',
-			notes: 'Ruteo',
-			// usuario: 'Usuario5',
+			notes: 'Prueba de notas',
+			description: "Cali",
+			users: ['Usuario1', 'Usuario2', 'Usuario3', 'Usuario4'],
+			usuarios: [5],
 			startDate: new Date(2018, 6, 3),
 			dueDate: new Date(2018, 6, 4),
 			completed: false,
 			state: false,
 			important: false,
 			deleted: false,
-			labels: [1, 2]
+			label: 'Zonas verdes y Jardinería',
 		},
 		// {
 		// 	id: '561551bd32f1588c814a0ccd',
@@ -277,52 +286,31 @@ const todoDB = {
 			icon: 'snippet_folder'
 		},
 	],
-	labels: [
-		{
-			id: 1,
-			handle: 'activity1',
-			title: 'Recogida',
-			color: '#388E3C'
-		},
-		{
-			id: 2,
-            handle: 'activity2',
-            title: 'Limpieza',
-            color: 'blue'
-		},
-		{
-			id: 3,
-			handle: 'activity3',
-			title: 'Recogida y Limpieza',
-			color: '#F44336'
-		},
-		{
-			id: 4,
-			handle: 'activity4',
-			title: 'Zonas verdes y Jardinería',
-			color: '#FF9800'
-		},
-	],
 	usuarios: [
 		{
 			id: 1,
 			usuario: 'usuario1',
+			name: 'Hugo',
 		},
 		{
 			id: 2,
 			usuario: 'usuario2',
+			name: 'Juan',
 		},
 		{
 			id: 3,
             usuario: 'usuario3',
+			name: 'Paco',
 		},
 		{
 			id: 4,
             usuario: 'usuario4',
+			name: 'Luis',
 		},
 		{
 			id: 5,
             usuario: 'usuario5',
+			name: 'Natalia',
 		}
 	],
 };

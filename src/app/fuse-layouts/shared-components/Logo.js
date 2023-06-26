@@ -1,20 +1,10 @@
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-
-const Root = styled('div')(({ theme }) => ({
-  '& > .logo-icon': {
-    transition: theme.transitions.create(['width', 'height'], {
-      duration: theme.transitions.duration.shortest,
-      easing: theme.transitions.easing.easeInOut,
-    }),
-  },
-}));
+import { Box } from '@mui/system';
 
 function Logo() {
   return (
-    <Root className="flex items-center">
-      <img className="logo-icon" src="assets/images/logos/Urbaser.png" alt="logo" />
-    </Root>
+    <Box sx={{pl: 5}}>
+      <img className="logo-icon w-200" src="assets/images/logos/Urbaser.png" alt="logo" />
+    </Box>
   );
 }
 

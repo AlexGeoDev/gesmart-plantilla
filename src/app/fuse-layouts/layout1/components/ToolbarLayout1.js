@@ -1,4 +1,4 @@
-import React, {useEffect} from  'react';
+import React from  'react';
 import { ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Hidden from '@mui/material/Hidden';
@@ -47,14 +47,14 @@ function ToolbarLayout1(props) {
             )}
 
             <Box border={1} className='flex w-200 justify-around'>
-              <Box border={1} className='flex flex-1 justify-center items-center m-2 w-45 h-45' >T1</Box>
-              <Box border={1} className='flex flex-1 justify-center items-center m-2 w-45 h-45'>T3</Box>
+              <Box border={1} className='flex flex-1 justify-center items-center m-2 w-45 h-45'>T1</Box>
               <Box border={1} className='flex flex-1 justify-center items-center m-2 w-45 h-45'>T2</Box>
+              <Box border={1} className='flex flex-1 justify-center items-center m-2 w-45 h-45'>T3</Box>
               <Box border={1} className='flex flex-1 justify-center items-center m-2 w-45 h-45'>T4</Box>
             </Box>
           </div>
 
-          <div className="flex items-center px-8 h-full overflow-x-auto">
+          <div className="flex items-center px-8 h-full overflow-x-auto"> 
             <FullScreenToggle />
             <UserMenu />
           </div>
