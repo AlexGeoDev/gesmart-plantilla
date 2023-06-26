@@ -95,7 +95,7 @@ const ZonificacionApp = () => {
               value={selectProject}
               onChange={handleSelect}
               required
-              label="Proyecto"
+              label="Seleccione un proyecto"
               renderValue={(selected) => {
                 const selectedOption = options.find((option) => option.value === selected);
                 return selectedOption ? selectedOption.label : '';
@@ -120,10 +120,6 @@ const ZonificacionApp = () => {
               CANCELAR
             </Button>
           </div>
-
-          <Typography variant="body1" color="initial">
-            El proyecto seleccionado es: {selectProject}
-          </Typography>
         </Box>
       </Modal>
 
