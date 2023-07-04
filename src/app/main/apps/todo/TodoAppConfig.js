@@ -8,7 +8,7 @@ const TodoAppConfig = {
   settings: {
     layout: {},
   },
-  // auth: authRoles.user,
+  auth: authRoles.admin,
   routes: [
     {
       path: 'apps/todo/label/:labelHandle',
