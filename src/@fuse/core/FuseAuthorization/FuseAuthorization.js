@@ -1,10 +1,10 @@
-import FuseUtils from '@fuse/utils';
-import AppContext from 'app/AppContext';
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import { matchRoutes } from 'react-router-dom';
-import withRouter from '@fuse/core/withRouter';
-import settingsConfig from 'app/fuse-configs/settingsConfig';
+import FuseUtils from "@fuse/utils";
+import AppContext from "app/AppContext";
+import { Component } from "react";
+import { connect } from "react-redux";
+import { matchRoutes, Navigate } from "react-router-dom";
+import withRouter from "@fuse/core/withRouter";
+import settingsConfig from "app/fuse-configs/settingsConfig";
 
 class FuseAuthorization extends Component {
   constructor(props, context) {
@@ -12,9 +12,10 @@ class FuseAuthorization extends Component {
     const { routes } = context;
     this.state = {
       accessGranted: true,
+      pathMatched: false,
       routes,
     };
-    this.defaultLoginRedirectUrl = settingsConfig.loginRedirectUrl || '/';
+    this.defaultLoginRedirectUrl = settingsConfig.loginRedirectUrl || "/";
   }
 
   componentDidMount() {
@@ -40,44 +41,58 @@ class FuseAuthorization extends Component {
     const matchedRoutes = matchRoutes(state.routes, pathname);
 
     const matched = matchedRoutes ? matchedRoutes[0] : false;
+    const pathMatched = !!matched;
+
+    const accessGranted = matched
+      ? FuseUtils.hasPermission(matched.route.auth, userRole)
+      : false;
 
     return {
-      accessGranted: matched ? FuseUtils.hasPermission(matched.route.auth, userRole) : true,
+      pathMatched,
+      accessGranted,
     };
   }
 
   redirectRoute() {
-    const { location, userRole, navigate } = this.props;
+    const { location, userRole } = this.props;
+    const { pathMatched } = this.state;
     const { pathname } = location;
     const loginRedirectUrl = settingsConfig.loginRedirectUrl
       ? settingsConfig.loginRedirectUrl
       : this.defaultLoginRedirectUrl;
 
     /*
-        User is guest
-        Redirect to Login Page
-        */
-    if (!userRole || userRole.length === 0) {
-      navigate({
-        pathname: '/login',
-      });
-      settingsConfig.loginRedirectUrl = pathname;
-    } else {
-      /*
-        User is member
-        User must be on unAuthorized page or just logged in
-        Redirect to dashboard or loginRedirectUrl
-        */
-      navigate({
-        pathname: loginRedirectUrl,
-      });
-      settingsConfig.loginRedirectUrl = this.defaultLoginRedirectUrl;
+      Esta logeado y no existe la pagina
+      Redirect to 404
+    */
+    if (userRole && userRole.length > 0 && !pathMatched) {
+      return <Navigate to="/404" />;
     }
+    /*
+      No esta logeado
+      Redirect /login
+    */
+    if (!userRole || userRole.length === 0) {
+      if (!pathMatched) settingsConfig.loginRedirectUrl = "/404";
+      else settingsConfig.loginRedirectUrl = pathname;
+      return <Navigate to="/login" />;
+    }
+    /*
+      User is member
+      User must be on unAuthorized page or just logged in
+      Redirect to dashboard or loginRedirectUrl
+    */
+    const url = loginRedirectUrl;
+    settingsConfig.loginRedirectUrl = this.defaultLoginRedirectUrl;
+    return <Navigate to={url} />;
   }
 
   render() {
-    // console.info('Fuse Authorization rendered', this.state.accessGranted);
-    return this.state.accessGranted ? <>{this.props.children}</> : null;
+    if (!this.state.accessGranted) {
+      return this.redirectRoute();
+    }
+
+    return <>{this.props.children}</>;
   }
 }
 

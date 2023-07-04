@@ -1,3 +1,5 @@
+import { authRoles } from "app/auth";
+
 const navigationConfig = [
   {
     id: 'zonificacion',
@@ -31,12 +33,14 @@ const navigationConfig = [
     id: 'administracion',
     title: 'ADMINISTRACIÓN',
     type: 'collapse',
+    auth: authRoles.admin,
     icon: 'construction',
     children: [
       {
         id: 'usuarios',
         title: 'Usuarios',
         type: 'item',
+        auth: authRoles.admin,
         icon: 'supervisor_account',
         url: 'apps/contacts/all',
       },
@@ -44,6 +48,7 @@ const navigationConfig = [
         id: 'proyectos',
         title: 'Proyectos',
         type: 'item',
+        auth: authRoles.admin,
         icon: 'folder',
         url: 'apps/todo',
       },
@@ -51,6 +56,7 @@ const navigationConfig = [
         id: 'cartografia',
         title: 'Cartografía',
         type: 'item',
+        auth: authRoles.admin,
         icon: 'map_rounded',
         url: 'administracion/carto',
       },

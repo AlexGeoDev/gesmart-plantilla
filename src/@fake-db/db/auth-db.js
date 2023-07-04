@@ -13,82 +13,82 @@ const authDB = {
 			uuid: 'XgbuVEXBU5gtSKdbQRP1Zbbby1i1',
 			from: 'custom-db',
 			password: 'admin',
-			role: 'admin',
+			role: 'Administrador',
 			data: {
 				displayName: 'Abbott Keitch',
 				photoURL: 'assets/images/avatars/Abbott.jpg',
 				email: 'admin@fusetheme.com',
-				settings: {
-					layout: {
-						style: 'layout1',
-						config: {
-							scroll: 'content',
-							navbar: {
-								display: true,
-								folded: true,
-								position: 'left'
-							},
-							toolbar: {
-								display: true,
-								style: 'fixed',
-								position: 'below'
-							},
-							footer: {
-								display: true,
-								style: 'fixed',
-								position: 'below'
-							},
-							mode: 'fullwidth'
-						}
-					},
-					customScrollbars: true,
-					theme: {
-						main: 'defaultDark',
-						navbar: 'defaultDark',
-						toolbar: 'defaultDark',
-						footer: 'defaultDark'
-					}
-				},
-				shortcuts: ['calendar', 'mail', 'contacts']
+				// settings: {
+				// 	layout: {
+				// 		style: 'layout1',
+				// 		config: {
+				// 			scroll: 'content',
+				// 			navbar: {
+				// 				display: true,
+				// 				folded: true,
+				// 				position: 'left'
+				// 			},
+				// 			toolbar: {
+				// 				display: true,
+				// 				style: 'fixed',
+				// 				position: 'below'
+				// 			},
+				// 			footer: {
+				// 				display: true,
+				// 				style: 'fixed',
+				// 				position: 'below'
+				// 			},
+				// 			mode: 'fullwidth'
+				// 		}
+				// 	},
+				// 	customScrollbars: true,
+				// 	theme: {
+				// 		main: 'defaultDark',
+				// 		navbar: 'defaultDark',
+				// 		toolbar: 'defaultDark',
+				// 		footer: 'defaultDark'
+				// 	}
+				// },
+				// shortcuts: ['calendar', 'mail', 'contacts']
 			}
 		},
 		{
 			uuid: 'XgbuVEXBU6gtSKdbTYR1Zbbby1i3',
 			from: 'custom-db',
 			password: 'staff1',
-			role: 'staff',
+			role: 'Usuario',
 			data: {
 				displayName: 'Arnold Matlock',
 				photoURL: 'assets/images/avatars/Arnold.jpg',
 				email: 'staff@fusetheme.com',
-				settings: {
-					layout: {
-						style: 'layout2',
-						config: {
-							mode: 'boxed',
-							scroll: 'content',
-							navbar: {
-								display: true
-							},
-							toolbar: {
-								display: true,
-								position: 'below'
-							},
-							footer: {
-								display: true,
-								style: 'fixed'
-							}
-						}
-					},
-					customScrollbars: true,
-					theme: {
-						main: 'greeny',
-						navbar: 'mainThemeDark',
-						toolbar: 'mainThemeDark',
-						footer: 'mainThemeDark'
-					}
-				},
-				shortcuts: ['calendar', 'mail', 'contacts', 'todo']
+				// settings: {
+				// 	layout: {
+				// 		style: 'layout2',
+				// 		config: {
+				// 			mode: 'boxed',
+				// 			scroll: 'content',
+				// 			navbar: {
+				// 				display: true
+				// 			},
+				// 			toolbar: {
+				// 				display: true,
+				// 				position: 'below'
+				// 			},
+				// 			footer: {
+				// 				display: true,
+				// 				style: 'fixed'
+				// 			}
+				// 		}
+				// 	},
+				// 	customScrollbars: true,
+				// 	theme: {
+				// 		main: 'greeny',
+				// 		navbar: 'mainThemeDark',
+				// 		toolbar: 'mainThemeDark',
+				// 		footer: 'mainThemeDark'
+				// 	}
+				// },
+				// shortcuts: ['calendar', 'mail', 'contacts', 'todo']
 			}
 		}
 	]
@@ -270,7 +270,7 @@ function generateJWTToken(tokenPayload)
 	const encodedPayload = base64url(stringifiedPayload);
 
 	// Sign the encoded header and mock-api
-	let signature: any = encodedHeader + '.' + encodedPayload;
+	let signature = encodedHeader + '.' + encodedPayload;
 	signature = HmacSHA256(signature, jwtSecret);
 	signature = base64url(signature);
 

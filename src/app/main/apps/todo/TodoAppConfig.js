@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
+import { authRoles } from 'app/auth';
 
 const TodoApp = lazy(() => import('./TodoApp'));
 
@@ -7,6 +8,7 @@ const TodoAppConfig = {
   settings: {
     layout: {},
   },
+  // auth: authRoles.user,
   routes: [
     {
       path: 'apps/todo/label/:labelHandle',
