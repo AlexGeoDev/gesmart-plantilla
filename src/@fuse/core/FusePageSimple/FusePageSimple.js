@@ -36,11 +36,12 @@ const Root = styled('div')(({ theme }) => ({
   '& .FusePageSimple-header': {
     height: headerHeight,
     minHeight: headerHeight,
+    // width: '100vw',
     display: 'flex',
-    background: `linear-gradient(to right, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+    // background: `linear-gradient(to right, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
     color: theme.palette.primary.contrastText,
     backgroundSize: 'cover',
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: '#57998f',
   },
 
   '& .FusePageSimple-topBg': {

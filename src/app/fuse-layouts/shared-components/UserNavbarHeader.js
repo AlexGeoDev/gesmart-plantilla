@@ -45,18 +45,29 @@ function UserNavbarHeader(props) {
           backgroundColor: '#ffffff'
         }}
       >
-        <Typography className="username text-18 whitespace-nowrap font-semibold mb-4" color="inherit">
+        {/* <Typography className="username text-18 whitespace-nowrap font-semibold mb-4" color="inherit">
           {user.data.displayName}
+        </Typography> */}
+        <Typography className="username text-18 whitespace-nowrap font-semibold mb-4" color="inherit">
+          {user && user.data && user.data.displayName}
         </Typography>
-        <Typography
+
+        {/* <Typography
           className="email text-13 opacity-50 whitespace-nowrap font-medium"
           color="inherit"
         >
           {user.data.email}
-        </Typography>
+        </Typography> */}
+        <Typography
+  className="email text-13 opacity-50 whitespace-nowrap font-medium"
+  color="inherit"
+>
+  {user && user.data && user.data.email}
+</Typography>
+
       </Box>
       <div className="flex items-center justify-center absolute bottom-0 -mb-44">
-        <Avatar
+        {/* <Avatar
           className="avatar w-72 h-72 p-8 box-content"
           alt="user photo"
           src={
@@ -64,7 +75,17 @@ function UserNavbarHeader(props) {
               ? user.data.photoURL
               : 'assets/images/avatars/profile.jpg'
           }
-        />
+        /> */}
+        <Avatar
+  className="avatar w-72 h-72 p-8 box-content"
+  alt="user photo"
+  src={
+    user && user.data && user.data.photoURL && user.data.photoURL !== ''
+      ? user.data.photoURL
+      : 'assets/images/avatars/profile.jpg'
+  }
+/>
+
       </div>
     </StyledAppBar>
   );

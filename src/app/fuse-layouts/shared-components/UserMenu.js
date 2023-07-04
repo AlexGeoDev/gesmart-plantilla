@@ -43,21 +43,45 @@ const UserMenu = () => {
         onClick={userMenuClick}
         color="inherit"
       >
-        <div className="hidden md:flex flex-col mx-4 items-end">
-          <Typography component="span" className="font-semibold flex">
-            {user.data.displayName}
-          </Typography>
+        {/* <div className="hidden md:flex flex-col mx-4 items-end">
+          {user.role && user.role.length > 0 ? (
+            <Typography className="text-11 font-medium capitalize" color="textSecondary">
+              {user.role.toString()}
+            </Typography>
+          ) : (
+            <Typography className="text-11 font-medium capitalize" color="textSecondary">
+              Guest
+            </Typography>
+          )}
+          
           <Typography className="text-11 font-medium capitalize" color="textSecondary">
             {user.role.toString()}
             {(!user.role || (Array.isArray(user.role) && user.role.length === 0)) && 'Guest'}
           </Typography>
-        </div>
+        </div> */}
+        <div className="hidden md:flex flex-col mx-4 items-end">
+  {user && user.role && user.role.length > 0 ? (
+    <Typography className="text-11 font-medium capitalize" color="textSecondary">
+      {user.role.toString()}
+    </Typography>
+  ) : (
+    <Typography className="text-11 font-medium capitalize" color="textSecondary">
+      Guest
+    </Typography>
+  )}
+</div>
 
-        {user.data.photoURL ? (
+        {/* {user.data.photoURL ? (
           <Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
         ) : (
           <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
-        )}
+        )} */}
+        {user.data && user.data.photoURL ? (
+  <Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
+) : (
+  <Avatar className="md:mx-4">{user && user.data && user.data.displayName[0]}</Avatar>
+)}
+
       </Button>
 
       <Popover
@@ -103,7 +127,7 @@ const UserMenu = () => {
               <ListItemIcon className="min-w-40">
                 <Icon>mail</Icon>
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="Correo" />
             </MenuItem>
             <MenuItem
               component={Link}
@@ -116,7 +140,7 @@ const UserMenu = () => {
               <ListItemIcon className="min-w-40">
                 <Icon>exit_to_app</Icon>
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText primary="Salir" />
             </MenuItem>
           </>
         )}

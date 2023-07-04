@@ -1,3 +1,4 @@
+import AppsDialogConfig from './AppsDialogConfig';
 import AcademyAppConfig from './academy/AcademyAppConfig';
 import CalendarAppConfig from './calendar/CalendarAppConfig';
 import ChatAppConfig from './chat/ChatAppConfig';
@@ -14,6 +15,7 @@ import ZonificacionAppConfig from './zonificacion/ZonificacionAppConfig';
 
 const appsConfigs = [
   AnalyticsDashboardAppConfig,
+  AppsDialogConfig,
   ProjectDashboardAppConfig,
   MailAppConfig,
   TodoAppConfig,

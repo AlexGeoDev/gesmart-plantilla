@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import FuseNavItem from '../FuseNavItem';
 
 const StyledList = styled(List)(({ theme }) => ({
+  paddingTop: '30px',
   '& .fuse-list-item': {
     '&:hover': {
       backgroundColor: 

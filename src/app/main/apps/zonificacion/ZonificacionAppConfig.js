@@ -13,6 +13,18 @@ const ZonificacionAppConfig = {
       element: <ZonificacionApp />,
     },
     {
+      path: 'apps/zonificacion/proyecto-madrid',
+      element: <ZonificacionApp />,
+    },
+    {
+      path: 'apps/zonificacion/proyecto-villavicencio',
+      element: <ZonificacionApp />,
+    },
+    {
+      path: 'apps/zonificacion/proyecto-barcelona',
+      element: <ZonificacionApp />,
+    },
+    {
       path: 'apps/zonificacion',
       element: <Navigate to="/apps/zonificacion" />,
     },

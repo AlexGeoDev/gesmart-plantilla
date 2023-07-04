@@ -16,7 +16,9 @@ function ContactsHeader(props) {
   const mainTheme = useSelector(selectMainTheme);
 
   return (
-    <div className="flex flex-1 items-center justify-between p-4 sm:p-24" style={{backgroundColor: '#57998f'}}>
+    <div 
+      className="flex flex-1 items-center justify-between p-4 sm:p-24" 
+    >
       <div className="flex shrink items-center sm:w-224">
         <Hidden lgUp>
           <IconButton
@@ -51,13 +53,13 @@ function ContactsHeader(props) {
         </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
+      <div className="flex flex-1 items-center justify-center px-8 sm:px-12 ml-20">
         <ThemeProvider theme={mainTheme}>
           <Paper
             component={motion.div}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-            className="flex p-4 items-center w-full max-w-512 h-48 px-16 py-4 shadow"
+            className="flex flex-1 px-16 items-center h-48 shadow"
           >
             <Icon color="action">search</Icon>
 
