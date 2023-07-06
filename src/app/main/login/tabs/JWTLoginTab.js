@@ -76,7 +76,7 @@ function JWTLoginTab(props) {
               type="text"
               error={!!errors.email}
               helperText={errors?.email?.message}
-              label="Email"
+              label="Correo electronico"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -98,7 +98,7 @@ function JWTLoginTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              label="Password"
+              label="Contraseña"
               type="password"
               error={!!errors.password}
               helperText={errors?.password?.message}
@@ -130,7 +130,7 @@ function JWTLoginTab(props) {
             disabled={_.isEmpty(dirtyFields) || !isValid}
             value="legacy"
           >
-            Login
+            Ingresar
           </Button>
       </form>
     </div>
