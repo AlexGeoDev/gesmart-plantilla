@@ -72,7 +72,6 @@ const AppsDialog = () => {
 
   return (
     <>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}

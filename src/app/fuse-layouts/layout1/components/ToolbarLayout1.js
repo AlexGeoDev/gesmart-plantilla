@@ -126,6 +126,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 // Importamos los componentes de los iconos
 import PanelFrecuencia from 'app/fuse-layouts/shared-components/panels/PanelFrecuencia';
 import PanelZonificacion from 'app/fuse-layouts/shared-components/panels/PanelZonificacion';
+import ToolsButtons from 'app/fuse-layouts/shared-components/ToolsButtons';
 
 const StyledButton = styled(Button)(({ theme }) => ({
   minWidth: '44px',
@@ -185,21 +186,11 @@ function ToolbarLayout1(props) {
                 </Hidden>
               </>
             )}
-
-            {/* Renderizamos el icono "view_quilt" */}
-            {(isZonificacionRoute || isFrecuenciaRoute) && (
-              <StyledButton onClick={handleIconClick}>
-                <Icon>view_quilt</Icon>
-              </StyledButton>
-            )}
-
-            {/* Renderizamos el icono "date_range" */}
-            {(isZonificacionRoute || isFrecuenciaRoute) && (
-              <StyledButton onClick={handleIconClick}>
-                <Icon>date_range</Icon>
-              </StyledButton>
-            )}
+            <div>
+              <ToolsButtons />
+            </div>
           </div>
+
 
           <div>
             <SelectProject />

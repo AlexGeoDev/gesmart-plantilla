@@ -8,8 +8,9 @@ import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import { amber, red } from '@mui/material/colors';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 import FormControl from '@mui/material/FormControl';
 import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
@@ -47,7 +48,7 @@ const defaultValues = {
   completed: false,
   deleted: false,
   labels: [],
-  usuarios: [], // Added usuarios field with an empty array
+  usuarios: [],
 };
 
 /**
@@ -84,7 +85,7 @@ function TodoDialog(props) {
   const formLabels = watch('labels');
   const dueDate = watch('deuDate');
   const startDate = watch('startDate');
-  const formUsuarios = watch('usuarios'); // Added formUsuarios field
+  const formUsuarios = watch('usuarios');
 
   /**
    * Initialize Dialog with Data
@@ -142,10 +143,25 @@ function TodoDialog(props) {
    * Remove Event
    */
   function handleRemove() {
+    showDialog();
+  }
+
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  const showDialog = () => {
+    setShowDeleteDialog(true);
+  };
+
+  const hideDialog = () => {
+    setShowDeleteDialog(false);
+  };
+
+  const handleDelete = () => {
     dispatch(removeTodo(formId)).then(() => {
       closeTodoDialog();
     });
-  }
+    hideDialog();
+  };
 
   return (
     <Dialog {...todoDialog.props} onClose={closeTodoDialog} fullWidth maxWidth="sm" scroll="body">
@@ -158,7 +174,6 @@ function TodoDialog(props) {
       </AppBar>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent classes={{ root: 'p-0' }}>
-
           <div className="px-16 sm:px-24">
             <FormControl className="mt-8 mb-16" required fullWidth>
               <Controller
@@ -219,7 +234,7 @@ function TodoDialog(props) {
                     value={formLabelsVal}
                     defaultValue={'Recogida'}
                     onChange={(event) => onChange(event.target.value)}
-                  >
+                 >
                     {options.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.value}
@@ -244,14 +259,14 @@ function TodoDialog(props) {
               Usuarios
             </Typography>
             <Controller 
-              name='users'
+              name='usuarios'
               control={control}
               render={({ field }) => (
                 <Autocomplete 
                   multiple
                   id='tags-filled'
-                  options={users.map((item) => item.value)}
-                  defaultValue={[users[0].value]}
+                  options={formUsuarios || []}
+                  defaultValue={formUsuarios || []}
                   filterSelectedOptions
                   renderTags={(value, getTagProps) => 
                     value.map((option, index) => (
@@ -265,7 +280,7 @@ function TodoDialog(props) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      placeholder="Selecione los usuarios"
+                      placeholder="Seleccione los usuarios"
                     />
                   )}                
                 />
@@ -273,11 +288,10 @@ function TodoDialog(props) {
             />
 
             <div className="mb-16">
-              <div className="flex items-center justify-between p-12">
+                <div className="flex items-center">
                 <Typography variant="body1" color="initial">
                   Estado
                 </Typography>
-                <div className="flex">
                   <Controller
                     name="completed"
                     control={control}
@@ -297,7 +311,6 @@ function TodoDialog(props) {
                     )}
                   />
                 </div>
-              </div>
             </div>
           </div>
         </DialogContent>
@@ -311,7 +324,7 @@ function TodoDialog(props) {
                 color="secondary"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Add
+                Agregar
               </Button>
             </div>
           </DialogActions>
@@ -324,7 +337,7 @@ function TodoDialog(props) {
                 color="secondary"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Save
+                Guardar
               </Button>
             </div>
             <IconButton className="min-w-auto" onClick={handleRemove}>
@@ -333,17 +346,29 @@ function TodoDialog(props) {
           </DialogActions>
         )}
       </form>
+      <Dialog
+        open={showDeleteDialog}
+        onClose={hideDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Confirmar eliminación</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" color="initial">
+            ¿Estás seguro de que deseas eliminar el proyecto?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDelete} color="secondary" autoFocus>
+            Aceptar
+          </Button>
+          <Button onClick={hideDialog} color="primary">
+            Cancelar
+          </Button>
+      </DialogActions>
+      </Dialog>
     </Dialog>
   );
 }
 
 export default TodoDialog;
-
-const users = [
-  { value: 'Administrador1' },
-  { value: 'Administrador2'},
-  { value: 'Usuario1' },
-  { value: 'Usuario2' },
-  { value: 'Usuario3' },
-  { value: 'Usuario4' },
-];

@@ -2,14 +2,14 @@ import React from 'react';
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
-const FrecuenciasApp = () => {
+const VrpApp = () => {
   return (
     <>
       <Container sx={{
         margin: 'auto',
       }}>
         <Typography variant="h3" color="initial" className='flex justify-center'>
-          Frecuencias en construcción
+          VRP en construcción
         </Typography>
         <div className='flex justify-center mt-20'>
           <img 
@@ -22,4 +22,4 @@ const FrecuenciasApp = () => {
   )
 }
 
-export default FrecuenciasApp;
+export default VrpApp;

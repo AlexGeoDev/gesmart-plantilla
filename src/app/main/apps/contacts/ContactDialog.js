@@ -317,12 +317,9 @@ function ContactDialog(props) {
                 type="submit"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Save
+                Guardar
               </Button>
             </div>
-            <IconButton onClick={handleRemove} size="large">
-              <Icon>delete</Icon>
-            </IconButton>
           </DialogActions>
         )}
       </form>

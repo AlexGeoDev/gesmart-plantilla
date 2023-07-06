@@ -9,12 +9,12 @@ const AppsDialogConfig = {
   },
   routes: [
     {
-      path: 'apps',
+      path: 'apps/zonificacion',
       element: <AppsDialog />,
     },
     {
       path: 'apps',
-      element: <Navigate to="/apps" />,
+      element: <Navigate to="/apps/zonificaion" />,
     },
   ],
 };

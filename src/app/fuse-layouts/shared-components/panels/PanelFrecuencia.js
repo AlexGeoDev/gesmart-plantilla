@@ -1,14 +1,10 @@
 import React from 'react';
-import { Icon } from '@mui/material';
+import { Icon, Button } from '@mui/material';
 
-const PanelFrecuencia = () => {
-  return (
-    <>
-      <Icon>
-        date_range
-      </Icon>
-    </>
-  );
-};
+const PanelFrecuencia = ({ onClick, disabled }) => (
+  <Button onClick={onClick} disabled={disabled}>
+    <Icon>date_range</Icon>
+  </Button>
+);
 
 export default PanelFrecuencia;

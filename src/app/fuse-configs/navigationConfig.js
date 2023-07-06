@@ -58,7 +58,7 @@ const navigationConfig = [
         type: 'item',
         auth: authRoles.admin,
         icon: 'map_rounded',
-        url: 'administracion/carto',
+        url: 'apps/cartografia',
       },
     ],
   },

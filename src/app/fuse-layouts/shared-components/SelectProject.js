@@ -9,18 +9,12 @@ export default function SelectProject() {
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = React.useState('');
-  const [nameProject, setNameProject] = React.useState('');
-  const [showSlug, setShowSlug] = React.useState('');
 
   const currentUrl = location.pathname;
 
   const handleMenuItemClick = (value, slug) => {
     navigate(`/apps/zonificacion/${slug}`);
-    setShowSlug(slug);
     setSelectedProject(value);
-    setNameProject(value);
-    console.log('el valor de value es :' + value);
-    console.log('el valor de slug es :' + slug);
   };
 
   React.useEffect(() => {
@@ -44,7 +38,7 @@ export default function SelectProject() {
           <Typography variant="h6">{slug}</Typography>
         </div>
       )}
-      <FormControl variant="standard" sx={{ m: 1, border: 'none' }}>
+      <FormControl variant="filled" sx={{ m: 1, border: 'none' }}>
         <Select value={selectedProject} displayEmpty className="border-1 border-red" sx={{ border: 'none' }}>
           <MenuItem
             component={Link}
@@ -70,7 +64,6 @@ export default function SelectProject() {
           >
             Proyecto Barcelona
           </MenuItem>
-          {/* Agrega más opciones de enlace aquí */}
         </Select>
       </FormControl>
     </Box>
