@@ -9,7 +9,7 @@ import reducer from './store';
 import { getLabels } from './store/labelsSlice';
 import { getFilters } from './store/filtersSlice';
 import { getFolders } from './store/foldersSlice';
-import { getTodos } from './store/todosSlice';
+import { getProjects } from './store/todosSlice';
 import TodoDialog from './TodoDialog';
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
@@ -43,7 +43,7 @@ function TodoApp(props) {
   }, [dispatch]);
 
   useDeepCompareEffect(() => {
-    dispatch(getTodos(routeParams));
+    dispatch(getProjects(routeParams));
   }, [dispatch, routeParams]);
 
   return (

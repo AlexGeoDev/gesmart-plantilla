@@ -9,8 +9,14 @@ import ReactDOM from 'react-dom';
 import App from 'app/App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+axios.defaults.baseURL = 'https://api.gesmart-urbaser.com'
+
+ReactDOM.render(
+  <App />, // Do not forget "," becasue render recive two params: 1. is the App (or the wrapper of App), 
+  document.getElementById('root') //2. It is where the elements will be rendered
+);
 
 reportWebVitals();
 

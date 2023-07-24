@@ -5,15 +5,15 @@ import FusePageCarded from '@fuse/core/FusePageCarded';
 import { styled } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import ZonificacionHeader from './ZonificacionHeader';
+import { yupResolver } from '@hookform/resolvers/yup';
+import FrecuenciasHeader from './FrecuenciasHeader';
 import Propiedades from './tabs/Propiedades';
 import AreaCalculo from './tabs/AreaCalculo';
 import Resultado from './tabs/Resultado';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { IconButton, Stack } from '@mui/material';
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import ZonificacionSidebar from './ZonificacionSidebar';
+import FrecuenciasSidebar from './FrecuenciasSidebar';
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   bottom: '55px',
@@ -31,6 +31,8 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 const Root = styled(FusePageCarded)(({ theme }) => ({
   bottom: 43,
   '& .FusePageCarded-header': {
+    minHeight: 72,
+    height: 72,
     alignItems: 'center',
     backgroundColor: '#57998f',
     [theme.breakpoints.up('sm')]: {
@@ -47,12 +49,11 @@ const schema = yup.object().shape({
     // .min(5, 'The product name must be at least 5 characters'),
 });
 
-const MainContent = ({panelOpen, setPanelOpen}) => {
+const FrecuenciasMainContent = ({panelOpen, setPanelOpen}) => {
   const [tabValue, setTabValue] = useState(0);
   const [showTabs, setShowTabs] = useState(false);
   const [isViewQuiltActive, setIsViewQuiltActive] = useState(false);
   const [isDateRangeActive, setIsDateRangeActive] = useState(false);
-  // const [panelOpen, setPanelOpen] = useState(true);
 
   const togglePanel = () => {
     setPanelOpen(!panelOpen);
@@ -82,22 +83,22 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
       <Stack direction={'row'} spacing={2} sx={{marginLeft: '60px'}}>
           <StyledIconButton
             color={isViewQuiltActive ? "primary" : "default"}
-            onClick={togglePanel}
+            disabled
           >
             <ViewQuiltIcon />
           </StyledIconButton>
           <StyledIconButton
             color={isDateRangeActive ? "primary" : "default"}
-            disabled
+            onClick={togglePanel}
           >
             <DateRangeIcon />
           </StyledIconButton>
       </Stack>
 
-      <Stack className='flex flex-row' sx={{bottom: '43px'}} style={{bottom: '43px'}}>
+      <Stack className='flex flex-row' sx={{bottom: '43px'}} style={{bottom: '43px'}} >
         <Stack>
           {panelOpen && (
-            <ZonificacionSidebar
+            <FrecuenciasSidebar
               panelOpen={panelOpen}
               setPanelOpen={setPanelOpen}
             />
@@ -106,7 +107,7 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
         <Stack className='flex flex-1'>
           <Root
             header={
-              <ZonificacionHeader pageLayout={pageLayout} onNuevoClick={handleNuevoClick} />
+              <FrecuenciasHeader pageLayout={pageLayout} onNuevoClick={handleNuevoClick} />
             }
             contentToolbar={
               <Tabs
@@ -143,4 +144,4 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
   );
 };
 
-export default MainContent;
+export default FrecuenciasMainContent;

@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getTodos = createAsyncThunk(
-  'todoApp/todos/getTodos',
+// Mostrar todos los proyectos
+export const getProjects = createAsyncThunk(
+  'getProjects',
   async (routeParams, { getState }) => {
     routeParams = routeParams || getState().todoApp.todos.routeParams;
-    const response = await axios.get('/api/todo-app/todos', {
+    const response = await axios.get('/project', {
       params: routeParams,
     });
     const data = await response.data;
@@ -17,10 +18,19 @@ export const getTodos = createAsyncThunk(
 export const addTodo = createAsyncThunk(
   'todoApp/todos/addTodo',
   async (todo, { dispatch, getState }) => {
-    const response = await axios.post('/api/todo-app/new-todo', todo);
+    const response = await axios.post('/project',
+    {
+      name: 'Proyecto C',
+      location: 'Cartagena',
+      startDate: '2023-08-08',
+      scope: 'Recogida',
+      description: 'Prueba3',
+      active: false
+    }
+    );
     const data = await response.data;
 
-    dispatch(getTodos());
+    dispatch(getProjects());
 
     return data;
   }
@@ -32,7 +42,7 @@ export const updateTodo = createAsyncThunk(
     const response = await axios.post('/api/todo-app/update-todo', todo);
     const data = await response.data;
 
-    dispatch(getTodos());
+    dispatch(getProjects());
 
     return data;
   }
@@ -44,7 +54,7 @@ export const removeTodo = createAsyncThunk(
     const response = await axios.post('/api/todo-app/remove-todo', todoId);
     const data = await response.data;
 
-    dispatch(getTodos());
+    dispatch(getProjects());
 
     return data;
   }
@@ -124,7 +134,7 @@ const todosSlice = createSlice({
   extraReducers: {
     [updateTodo.fulfilled]: todosAdapter.upsertOne,
     [addTodo.fulfilled]: todosAdapter.addOne,
-    [getTodos.fulfilled]: (state, action) => {
+    [getProjects.fulfilled]: (state, action) => {
       const { data, routeParams } = action.payload;
       todosAdapter.setAll(state, data);
       state.routeParams = routeParams;

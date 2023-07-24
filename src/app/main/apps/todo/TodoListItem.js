@@ -60,7 +60,15 @@ function TodoListItem(props) {
           className="todo-title truncate text-14 font-medium"
           color={props.todo.completed ? 'textSecondary' : 'inherit'}
         >
-          {props.todo.title}
+          {props.todo.name}
+        </Typography>
+
+        <Typography variant="body1" color="initial">
+          {props.todo.location}
+        </Typography>
+
+        <Typography variant="body1" color="initial">
+          {new Date(props.todo.startDate).toLocaleDateString()}
         </Typography>
 
         <Typography variant="body1" color="initial">
@@ -71,13 +79,9 @@ function TodoListItem(props) {
           {props.todo.description}
         </Typography>
 
-        <Typography variant="body1" color="initial">
-          {new Date(props.todo.startDate).toLocaleDateString()}
-        </Typography>
-
-        <Typography color="textSecondary" className="todo-notes truncate">
+        {/* <Typography color="textSecondary" className="todo-notes truncate">
           {_.truncate(props.todo.notes.replace(/<(?:.|\n)*?>/gm, ''), { length: 180 })}
-        </Typography>
+        </Typography> */}
 
         <Typography variant="body1" color="initial">
           {props.todo.users}

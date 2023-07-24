@@ -14,7 +14,7 @@ const StyledPanel = styled('div')(({ theme }) => ({
   bottom: 43,
 }));
 
-const ZonificacionSidebar = ({panelOpen, setPanelOpen}) => {
+const FrecuenciasSidebar = ({panelOpen, setPanelOpen}) => {
   const handleTogglePanel = () => {
     setPanelOpen(false);
   };
@@ -26,7 +26,7 @@ const ZonificacionSidebar = ({panelOpen, setPanelOpen}) => {
           <CloseIcon onClick={handleTogglePanel} sx={{position: 'relative', left: '0px'}}/>
           <Stack direction={'row'} className='flex flex-1 justify-center items-center' spacing={2}>
             <Typography variant="h6" color="initial">
-              COLA DE ZONIFICACIONES
+              COLA DE FRECUENCIAS
             </Typography>
             <ViewQuiltIcon />
           </Stack>
@@ -40,4 +40,4 @@ const ZonificacionSidebar = ({panelOpen, setPanelOpen}) => {
   );
 };
 
-export default ZonificacionSidebar;
+export default FrecuenciasSidebar;

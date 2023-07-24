@@ -1,14 +1,19 @@
-import React from 'react'
-import MainContent from './MainContent'
-import ZonificacionSidebar from './ZonificacionSidebar'
+import React, { useState } from 'react';
+import MainContent from './MainContent';
+import { Stack } from '@mui/material';
 
 const ZonificacionApp = () => {
-  return (
-    <div className='flex colum'>
-      <ZonificacionSidebar />
-      <MainContent />
-    </div>
-  )
-}
 
-export default ZonificacionApp
+  const [panelOpen, setPanelOpen] = useState(false);
+
+  return (
+    <Stack>
+      <MainContent
+        panelOpen={panelOpen}
+        setPanelOpen={setPanelOpen}
+      /> 
+    </Stack>
+  )
+};
+
+export default ZonificacionApp;

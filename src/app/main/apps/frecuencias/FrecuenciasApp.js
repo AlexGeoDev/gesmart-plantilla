@@ -1,24 +1,18 @@
-import React from 'react';
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
+import React, { useState } from 'react';
+import FrecuenciasMainContent from './FrecuenciasMainContent';
+import { Stack } from '@mui/material';
 
 const FrecuenciasApp = () => {
+
+  const [panelOpen, setPanelOpen] = useState(false);
+
   return (
-    <>
-      <Container sx={{
-        margin: 'auto',
-      }}>
-        <Typography variant="h3" color="initial" className='flex justify-center'>
-          Frecuencias en construcción
-        </Typography>
-        <div className='flex justify-center mt-20'>
-          <img 
-            width='70%'
-            src="assets/images/backgrounds/construyendo.jpg" 
-            alt="Imagen describe un sitio en cosntrucción" />
-        </div>        
-      </Container>
-    </>
+    <Stack>
+      <FrecuenciasMainContent
+        panelOpen={panelOpen}
+        setPanelOpen={setPanelOpen}
+      />
+    </Stack>
   )
 }
 
