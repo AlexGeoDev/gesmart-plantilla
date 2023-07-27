@@ -1,8 +1,6 @@
 import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import Icon from '@mui/material/Icon';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';

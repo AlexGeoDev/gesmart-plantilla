@@ -92,7 +92,7 @@ class JwtService extends FuseUtils.EventEmitter {
   signInWithToken = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get('/api/auth/access-token', {
+        .get('/api/auth/access-token', { //debe ser sustituido por un futuro endpoint de la API real de Arturo
           data: {
             access_token: this.getAccessToken(),
           },

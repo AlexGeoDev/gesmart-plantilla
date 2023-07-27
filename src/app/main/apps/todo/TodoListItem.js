@@ -1,4 +1,3 @@
-import _ from '@lodash';
 import { styled } from '@mui/material/styles';
 import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +8,6 @@ import { selectLabelsEntities } from './store/labelsSlice';
 import { updateTodo, openEditTodoDialog } from './store/todosSlice';
 import TodoChip from './TodoChip';
 
-
 const StyledListItem = styled(ListItem)(({ theme, completed }) => ({
   ...(completed && {
     background: 'rgba(0,0,0,0.03)',
@@ -19,80 +17,106 @@ const StyledListItem = styled(ListItem)(({ theme, completed }) => ({
   }),
 }));
 
-function TodoListItem(props) {
+function TodoListItem({ todo }) {
   const dispatch = useDispatch();
   const usuarios = useSelector(selectLabelsEntities);
 
+  const handleEditTodo = (ev) => {
+    ev.preventDefault();
+    dispatch(openEditTodoDialog(todo));
+  };
+
+  const handleToggleActive = (ev) => {
+    ev.stopPropagation();
+    dispatch(updateTodo({
+      ...todo,
+      active: !todo.active,
+    }));
+  };
+
+  const titleTypographyProps = {
+    minWidth: 300,
+    justifyContent: 'flex-start',
+    className: 'todo-title truncate text-14 font-medium',
+    color: todo.completed ? 'textSecondary' : 'inherit',
+  };
+
+  const locationTypographyProps = {
+    variant: 'body1',
+    color: 'initial',
+    minWidth: 150,
+    justifyContent: 'flex-start',
+  };
+
+  const startDateTypographyProps = {
+    variant: 'body1',
+    color: 'initial',
+    minWidth: 150,
+    justifyContent: 'flex-start',
+  };
+
+  const descriptionTypographyProps = {
+    variant: 'body1',
+    color: 'initial',
+    minWidth: 200,
+    justifyContent: 'flex-start',
+  };
+
   return (
     <StyledListItem
-      className="py-20 px-0 sm:px-8"
-      completed={props.todo.completed ? 1 : 0}
-      onClick={(ev) => {
-        ev.preventDefault();
-        dispatch(openEditTodoDialog(props.todo));
-      }}
+      className="py-20 px-0 sm:px-8 border-red border-1"
+      completed={todo.completed ? 1 : 0}
+      onClick={handleEditTodo}
       dense
       button
     >
       <IconButton
         tabIndex={-1}
         disableRipple
-        onClick={(ev) => {
-          ev.stopPropagation();
-          dispatch(
-            updateTodo({
-              ...props.todo,
-              completed: !props.todo.completed,
-            })
-          );
-        }}
+        onClick={handleToggleActive}
         size="large"
       >
-        {props.todo.completed ? (
+        {todo.active ? (
           <Icon color="action">radio_button_unchecked</Icon>
         ) : (
           <Icon color="secondary">check_circle</Icon>
         )}
       </IconButton>
 
-      <div className="flex flex-1 relative overflow-hidden justify-around">
-        <Typography
-          className="todo-title truncate text-14 font-medium"
-          color={props.todo.completed ? 'textSecondary' : 'inherit'}
-        >
-          {props.todo.name}
+      <div className="flex relative overflow-hidden justify-around">
+        <Typography {...titleTypographyProps}>
+          {todo.name}
         </Typography>
 
-        <Typography variant="body1" color="initial">
-          {props.todo.location}
+        <Typography {...locationTypographyProps}>
+          {todo.location}
         </Typography>
 
-        <Typography variant="body1" color="initial">
-          {new Date(props.todo.startDate).toLocaleDateString()}
+        <Typography {...startDateTypographyProps}>
+          {new Date(todo.startDate).toLocaleDateString()}
         </Typography>
 
-        <Typography variant="body1" color="initial">
-          {props.todo.label}
-        </Typography>
+        {/* <Typography {...labelTypographyProps}>
+          {todo.label}
+        </Typography> */}
 
-        <Typography variant="body1" color="initial">
-          {props.todo.description}
+        <Typography {...descriptionTypographyProps}>
+          {todo.description}
         </Typography>
 
         {/* <Typography color="textSecondary" className="todo-notes truncate">
-          {_.truncate(props.todo.notes.replace(/<(?:.|\n)*?>/gm, ''), { length: 180 })}
+          {_.truncate(todo.notes.replace(/<(?:.|\n)*?>/gm, ''), { length: 180 })}
         </Typography> */}
 
         <Typography variant="body1" color="initial">
-          {props.todo.users}
-          {/* {props.todo.users.map((user) => (
+          {todo.users}
+          {/* {todo.users.map((user) => (
             <TodoChip 
             name={users[user].name}
             key={user}
             />
           ))} */}
         </Typography>
-
       </div>
     </StyledListItem>
   );

@@ -1,4 +1,4 @@
-import FusePageCarded from '@fuse/core/FusePageCarded';
+import FusePageSimple from '@fuse/core/FusePageSimple/FusePageSimple';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
@@ -14,11 +14,10 @@ import TodoDialog from './TodoDialog';
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
 import TodoSidebarContent from './TodoSidebarContent';
-import TodoSidebarHeader from './TodoSidebarHeader';
 import TodoToolbar from './TodoToolbar';
 
-const Root = styled(FusePageCarded)(({ theme }) => ({
-  '& .FusePageCarded-header': {
+const Root = styled(FusePageSimple)(({ theme }) => ({
+  '& .FusePageSimple-header': {
     minHeight: 72,
     height: 72,
     alignItems: 'center',
@@ -27,6 +26,25 @@ const Root = styled(FusePageCarded)(({ theme }) => ({
       minHeight: 136,
       height: 136,
     },
+  },
+  '& .FusePageSimple-wrapper': {
+    minHeight: 0,
+  },
+  '& .FusePageSimple-contentWrapper': {
+    padding: 0,
+    [theme.breakpoints.up('sm')]: {
+      padding: 24,
+      height: '100%',
+    },
+  },
+  '& .FusePageSimple-content': {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  '& .FusePageSimple-sidebar': {
+    width: 256,
+    border: 0,
   },
 }));
 
@@ -50,10 +68,10 @@ function TodoApp(props) {
     <>
       <Root
         header={<TodoHeader pageLayout={pageLayout} />}
-        contentToolbar={<TodoToolbar />}
+        // contentToolbar={<TodoToolbar />}
         content={<TodoList />}
-        leftSidebarHeader={<TodoSidebarHeader />}
         leftSidebarContent={<TodoSidebarContent />}
+        sidebarInner
         ref={pageLayout}
         innerScroll
       />

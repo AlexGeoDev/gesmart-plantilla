@@ -42,28 +42,28 @@ const options = [
 
 const defaultValues = {
   id: '',
-  title: '',
-  notes: '',
+  name: '',
+  location: '',
   startDate: new Date(),
-  completed: false,
-  deleted: false,
-  labels: [],
-  usuarios: [],
+  scope: '',
+  description: '',
+  active: false,
 };
 
 /**
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  title: yup.string().required('You must enter a title'),
+  name: yup.string().required('You must enter a title'),
 });
 
 function TodoDialog(props) {
   const dispatch = useDispatch();
   const todoDialog = useSelector(({ todoApp }) => todoApp.todos.todoDialog);
   const labels = useSelector(selectLabels);
-
   const [labelMenuEl, setLabelMenuEl] = useState(null);
+  
+
   const { watch, handleSubmit, formState, reset, control, setValue } = useForm({
     mode: 'onChange',
     defaultValues,
@@ -139,6 +139,24 @@ function TodoDialog(props) {
     closeTodoDialog();
   }
 
+  function onSubmit(data) {
+    const newTodoData = {
+      name: data.name,
+      location: data.location,
+      startDate: new Date(),
+      scope: data.scope,
+      description: data.description,
+      active: data.active,
+    };
+
+    if (todoDialog.type === 'new') {
+      dispatch(addTodo(newTodoData));
+    } else {
+      dispatch(updateTodo({ ...todoDialog.data, ...newTodoData }));
+    }
+    closeTodoDialog();
+  }
+
   /**
    * Remove Event
    */
@@ -177,15 +195,15 @@ function TodoDialog(props) {
           <div className="px-16 sm:px-24">
             <FormControl className="mt-8 mb-16" required fullWidth>
               <Controller
-                name="title"
+                name="name"
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
                     label="Nombre de proyecto"
                     autoFocus
-                    error={!!errors.title}
-                    helperText={errors?.title?.message}
+                    error={!!errors.name}
+                    helperText={errors?.name?.message}
                     required
                     variant="outlined"
                   />
@@ -213,10 +231,14 @@ function TodoDialog(props) {
 
             <FormControl className="mt-8 mb-16" required fullWidth>
               <Controller
-                name="description"
+                name="location"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} label="Ámbito / Ubicación"  variant="outlined" />
+                  <TextField 
+                    {...field} 
+                    label="Ámbito / Ubicación"  
+                    variant="outlined" 
+                  />
                 )}
               />
             </FormControl>
@@ -226,15 +248,16 @@ function TodoDialog(props) {
                 Tipología
               </Typography>
               <Controller
-                name="label"
+                name="scope"
+                required
                 control={control}
                 render={({ field: { onChange, value: formLabelsVal } }) => (
                   <Select
                     id="label-select"
-                    value={formLabelsVal}
+                    value={formLabelsVal || 'Recogida'}
                     defaultValue={'Recogida'}
                     onChange={(event) => onChange(event.target.value)}
-                 >
+                  >
                     {options.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.value}
@@ -247,10 +270,16 @@ function TodoDialog(props) {
 
             <FormControl className="mt-8 mb-16" required fullWidth>
               <Controller
-                name="notes"
+                name="description"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} label="Notes" multiline rows="6" variant="outlined" />
+                  <TextField 
+                    {...field} 
+                    label="Notes" 
+                    multiline 
+                    rows="6" 
+                    variant="outlined"
+                  />
                 )}
               />
             </FormControl>
@@ -293,7 +322,7 @@ function TodoDialog(props) {
                   Estado
                 </Typography>
                   <Controller
-                    name="completed"
+                    name="active"
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <IconButton
@@ -302,7 +331,7 @@ function TodoDialog(props) {
                         onClick={(ev) => onChange(!value)}
                         size="large"
                       >
-                        {value ? (
+                        {!value ? (
                           <Icon color="secondary">check_circle</Icon>
                         ) : (
                           <Icon color="action">radio_button_unchecked</Icon>

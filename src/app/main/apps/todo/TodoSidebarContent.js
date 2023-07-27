@@ -6,12 +6,16 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
+import ReorderIcon from '@mui/icons-material/Reorder';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+import { Paper, Stack, Typography } from '@mui/material';
 import { selectFilters } from './store/filtersSlice';
-import { selectFolders } from './store/foldersSlice';
-import { selectLabels } from './store/labelsSlice';
-import { openNewTodoDialog } from './store/todosSlice';
+import { getProjects, openNewTodoDialog } from './store/todosSlice';
+import { useEffect } from 'react';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://api.gesmart-urbaser.com';
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({
   color: 'inherit!important',
@@ -40,74 +44,90 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-function TodoSidebarContent(props) {
+function TodoSidebarContent() {
   const dispatch = useDispatch();
-  const labels = useSelector(selectLabels);
-  const folders = useSelector(selectFolders);
   const filters = useSelector(selectFilters);
 
+  const updateProjects = async () => {
+    try {
+      const response = await axios.get('/project');
+      const projects = response.data;
+      dispatch(getProjects.fulfilled({ data: projects }));
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      // Puedes manejar el error aquí, mostrar un mensaje de error, etc.
+    }
+  };
+
+  useEffect(() => {
+    updateProjects();
+  }, []);
+  
   return (
-    <motion.div
-      initial={{ y: 50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1, transition: { delay: 0.4 } }}
-      className="flex-auto border-l-1 border-solid"
-    >
-      <div className="p-24 pb-16">
-        <Button
-          onClick={() => {
-            dispatch(openNewTodoDialog());
-          }}
-          variant="contained"
-          color="secondary"
-          className="w-full"
-          sx={{color: '#ffffff'}}
-        >
-          NUEVO PROYECTO
-        </Button>
-      </div>
+    <div className="p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4">
+      <Paper
+        component={motion.div}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+        className="rounded-0 shadow-none lg:rounded-16 lg:shadow"
+      >
+        <div className="p-24 pb-16">
+          <Button
+            onClick={() => {
+              dispatch(openNewTodoDialog());
+            }}
+            variant="contained"
+            color="secondary"
+            className="w-full"
+            sx={{color: '#ffffff'}}
+          >
+            NUEVO PROYECTO
+          </Button>
+        </div>
 
-      <div className="px-12">
-        <List>
-          {folders.length > 0 &&
-            folders.map((folder) => (
-              <StyledListItem
-                button
-                component={NavLinkAdapter}
-                to={`/apps/todo/${folder.handle}`}
-                key={folder.id}
-                activeClassName="active"
-              >
-                <Icon className="list-item-icon" color="action">
-                  {folder.icon}
-                </Icon>
-                <ListItemText primary={folder.title} disableTypography />
-              </StyledListItem>
-            ))}
-        </List>
+        <Stack direction={'row'}>
+          <Button 
+            sx={{
+              marginX: 1.5,
+              borderRadius: 2,
+              backgroundColor: '#eaeaeb',
+            }}
+            className='flex flex-1 justify-start'
+            onClick={() => {
+              updateProjects();
+              console.log('1');
+            }}
+          >
+            <ReorderIcon sx={{fontSize: '26px'}}/>
+            <Typography variant="body1" color="initial" marginLeft={2}>Proyectos</Typography>
+          </Button>
+        </Stack>
 
-        <List>
-          <ListSubheader className="pl-12" disableSticky>
-            ESTADO
-          </ListSubheader>
+        <div className="px-12">
+          <List>
+            <ListSubheader className="pl-12" disableSticky>
+              ESTADO
+            </ListSubheader>
 
-          {filters.length > 0 &&
-            filters.map((filter) => (
-              <StyledListItem
-                button
-                component={NavLinkAdapter}
-                to={`/apps/todo/filter/${filter.handle}`}
-                activeClassName="active"
-                key={filter.id}
-              >
-                <Icon className="list-item-icon" color="action" fontSize='50px'>
-                  {filter.icon}
-                </Icon>
-                <ListItemText primary={filter.title} disableTypography />
-              </StyledListItem>
-            ))}
-        </List>
-      </div>
-    </motion.div>
+            {filters.length > 0 &&
+              filters.map((filter) => (
+                <StyledListItem
+                  button
+                  component={NavLinkAdapter}
+                  to={`/apps/todo/filter/${filter.handle}`}
+                  activeClassName="active"
+                  key={filter.id}
+                >
+                  <Icon className="list-item-icon" color="action" fontSize='50px'>
+                    {filter.icon}
+                  </Icon>
+                  <ListItemText primary={filter.title} disableTypography />
+                </StyledListItem>
+              ))}
+          </List>
+        </div>
+      </Paper>
+    </div>
   );
 }
 

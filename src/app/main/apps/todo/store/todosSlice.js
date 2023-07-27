@@ -16,18 +16,9 @@ export const getProjects = createAsyncThunk(
 );
 
 export const addTodo = createAsyncThunk(
-  'todoApp/todos/addTodo',
+  'addProject',
   async (todo, { dispatch, getState }) => {
-    const response = await axios.post('/project',
-    {
-      name: 'Proyecto C',
-      location: 'Cartagena',
-      startDate: '2023-08-08',
-      scope: 'Recogida',
-      description: 'Prueba3',
-      active: false
-    }
-    );
+    const response = await axios.post('/project', todo);
     const data = await response.data;
 
     dispatch(getProjects());
@@ -37,11 +28,11 @@ export const addTodo = createAsyncThunk(
 );
 
 export const updateTodo = createAsyncThunk(
-  'todoApp/todos/updateTodo',
+  'updateProject',
   async (todo, { dispatch, getState }) => {
-    const response = await axios.post('/api/todo-app/update-todo', todo);
+    const response = await axios.patch(`/project/${todo.id}`, todo);
     const data = await response.data;
-
+    
     dispatch(getProjects());
 
     return data;
@@ -49,9 +40,9 @@ export const updateTodo = createAsyncThunk(
 );
 
 export const removeTodo = createAsyncThunk(
-  'todoApp/todos/removeTodo',
+  'removeProject',
   async (todoId, { dispatch, getState }) => {
-    const response = await axios.post('/api/todo-app/remove-todo', todoId);
+    const response = await axios.delete(`/project/${todoId}`, todoId);
     const data = await response.data;
 
     dispatch(getProjects());

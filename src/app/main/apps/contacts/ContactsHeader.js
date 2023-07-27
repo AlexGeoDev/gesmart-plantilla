@@ -3,8 +3,9 @@ import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
-import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import { ThemeProvider } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
@@ -33,14 +34,7 @@ function ContactsHeader(props) {
         </Hidden>
 
         <div className="flex items-center">
-          <Icon
-            component={motion.span}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1, transition: { delay: 0.2 } }}
-            className="text-24 md:text-32"
-          >
-            group
-          </Icon>
+          <SupervisorAccountIcon sx={{ fontSize: 50 }}/>
           <Typography
             component={motion.span}
             initial={{ x: -20 }}
@@ -53,18 +47,18 @@ function ContactsHeader(props) {
         </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-center px-8 sm:px-12 ml-20">
+      <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
         <ThemeProvider theme={mainTheme}>
           <Paper
             component={motion.div}
             initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+            animate={{ y: 0, opacity: 1, transition: { delay: 0 } }}
             className="flex flex-1 px-16 items-center h-48 shadow"
           >
             <Icon color="action">search</Icon>
 
             <Input
-              placeholder="Search for anything"
+              placeholder="Buscar"
               className="flex flex-1 px-16"
               disableUnderline
               fullWidth

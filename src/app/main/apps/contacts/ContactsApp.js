@@ -14,8 +14,7 @@ import { getContacts } from './store/contactsSlice';
 import { getUserData } from './store/userSlice';
 
 const Root = styled(FusePageSimple)(({ theme }) => ({
-  '& .FusePageSimple-header': {
-    // border: '1px solid red',
+  '& .FusePageSimple-header':   {
     minHeight: 72,
     height: 72,
     [theme.breakpoints.up('lg')]: {
