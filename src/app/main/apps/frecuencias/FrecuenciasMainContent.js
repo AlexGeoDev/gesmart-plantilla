@@ -10,10 +10,11 @@ import FrecuenciasHeader from './FrecuenciasHeader';
 import Propiedades from './tabs/Propiedades';
 import AreaCalculo from './tabs/AreaCalculo';
 import Resultado from './tabs/Resultado';
-import { IconButton, Stack } from '@mui/material';
+import { IconButton, Stack, Button, Typography } from '@mui/material';
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import FrecuenciasSidebar from './FrecuenciasSidebar';
+import { useTranslation } from 'react-i18next';
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   bottom: '55px',
@@ -54,6 +55,7 @@ const FrecuenciasMainContent = ({panelOpen, setPanelOpen}) => {
   const [showTabs, setShowTabs] = useState(false);
   const [isViewQuiltActive, setIsViewQuiltActive] = useState(false);
   const [isDateRangeActive, setIsDateRangeActive] = useState(false);
+  const { t } = useTranslation('frecuenciasApp');
 
   const togglePanel = () => {
     setPanelOpen(!panelOpen);
@@ -109,22 +111,26 @@ const FrecuenciasMainContent = ({panelOpen, setPanelOpen}) => {
             header={
               <FrecuenciasHeader pageLayout={pageLayout} onNuevoClick={handleNuevoClick} />
             }
-            contentToolbar={
-              <Tabs
-                value={tabValue}
-                onChange={handleTabChange}
-                indicatorColor="primary"
-                textColor="primary"
-                variant="scrollable"
-                scrollButtons="auto"
-                classes={{ root: 'w-full h-64' }}
-              >
-                <Tab key="propertiestab" className="h-64" label="Propiedades" />
-                <Tab key="areatab" className="h-64" label="Área de cálculo" />
-                <Tab key="resulttab" className="h-64" label="Resultado" />
-              </Tabs>
+            contentToolbar={showTabs && (
+              <div>
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  variant="scrollable"
+                  scrollButtons="auto"
+                  classes={{ root: 'w-full h-64' }}
+                >
+
+                  <Tab key="propertiestab" className="h-64" label={t('PROPIEDADES')}/>
+                  <Tab key="areatab" className="h-64" label={t('AREA_CALCULO')}/>
+                  <Tab key="resulttab" className="h-64" label={t('RESULTADO')}/>
+                </Tabs>
+              </div>
+            )
             }
-            content={
+            content={showTabs && (
               <div className="p-16 sm:p-24 max-w-2xl">
                 {showTabs && tabValue === 0 && (
                   <Propiedades control={control} formState={formState} />
@@ -136,7 +142,7 @@ const FrecuenciasMainContent = ({panelOpen, setPanelOpen}) => {
                   <Resultado control={control} formState={formState} />
                 )}
               </div>
-            }
+            )}
           />
         </Stack>
       </Stack>

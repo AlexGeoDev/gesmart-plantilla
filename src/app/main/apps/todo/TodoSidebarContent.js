@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -7,15 +8,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import ReorderIcon from '@mui/icons-material/Reorder';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import SnippetFolderIcon from '@mui/icons-material/SnippetFolder';
+import SnippetFolderOutlinedIcon from '@mui/icons-material/SnippetFolderOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { Paper, Stack, Typography } from '@mui/material';
 import { selectFilters } from './store/filtersSlice';
-import { getProjects, openNewTodoDialog } from './store/todosSlice';
+import { getProjects, getProjectsActive, openNewTodoDialog } from './store/todosSlice';
 import { useEffect } from 'react';
-import axios from 'axios';
-
-axios.defaults.baseURL = 'https://api.gesmart-urbaser.com';
+import { useTranslation } from 'react-i18next';
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({
   color: 'inherit!important',
@@ -47,22 +49,25 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 function TodoSidebarContent() {
   const dispatch = useDispatch();
   const filters = useSelector(selectFilters);
+  const { t } = useTranslation('projectsApp')
 
-  const updateProjects = async () => {
-    try {
-      const response = await axios.get('/project');
-      const projects = response.data;
-      dispatch(getProjects.fulfilled({ data: projects }));
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      // Puedes manejar el error aquí, mostrar un mensaje de error, etc.
-    }
-  };
+  const [activeButton, setActiveButton] = useState('activos'); // Estado para el botón activo
+  const [activeProjects, setActiveProjects] = useState(true); // Estado para filtrar proyectos
+
 
   useEffect(() => {
-    updateProjects();
-  }, []);
-  
+    dispatch(getProjects()); // Llamada a la acción getProjects para obtener los proyectos
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProjectsActive());
+  }, [dispatch]);
+
+  const handleButtonClick = (isActive) => {
+    setActiveButton(isActive ? 'activos' : 'baja');
+    setActiveProjects(isActive);
+  };
+
   return (
     <div className="p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4">
       <Paper
@@ -79,37 +84,84 @@ function TodoSidebarContent() {
             variant="contained"
             color="secondary"
             className="w-full"
-            sx={{color: '#ffffff'}}
+            sx={{ color: '#ffffff' }}
           >
-            NUEVO PROYECTO
+            {t('NUEVO_PROYECTO')}
           </Button>
         </div>
 
         <Stack direction={'row'}>
-          <Button 
+          <Button
             sx={{
               marginX: 1.5,
               borderRadius: 2,
-              backgroundColor: '#eaeaeb',
+              // backgroundColor: '#eaeaeb',
+              backgroundColor: activeButton === 'activos' ? '#eaeaeb' : '',
             }}
-            className='flex flex-1 justify-start'
+            className="flex flex-1 justify-start"
             onClick={() => {
-              updateProjects();
+              dispatch(getProjects()); // Llamada a la acción getProjects para obtener los proyectos
               console.log('1');
             }}
           >
-            <ReorderIcon sx={{fontSize: '26px'}}/>
-            <Typography variant="body1" color="initial" marginLeft={2}>Proyectos</Typography>
+            <ReorderIcon sx={{ fontSize: '26px' }} />
+            <Typography variant="body1" color="initial" marginLeft={2}>
+              {t('Proyectos')}
+            </Typography>
           </Button>
         </Stack>
 
         <div className="px-12">
           <List>
             <ListSubheader className="pl-12" disableSticky>
-              ESTADO
+              {t('ESTADO')}
             </ListSubheader>
 
-            {filters.length > 0 &&
+            <Stack direction={'row'}>
+              <Button
+                sx={{
+                  paddingX: 1.2,
+                  borderRadius: 2,
+                  // backgroundColor: '#eaeaeb',
+                  // backgroundColor: activeButton === 'activos' ? '#eaeaeb' : '',
+                }}
+                className="flex flex-1 justify-start"
+                disabled={true}
+                onClick={() => {
+                  dispatch(getProjectsActive());
+                  console.log('2');
+                }}
+              >
+                <FolderOpenIcon sx={{ fontSize: '26px' }} />
+                <Typography variant="body1" color="initial" marginLeft={2}>
+                  {t('Activos')}
+                </Typography>
+              </Button>
+            </Stack>
+
+            <Stack direction={'row'} mt={1}>
+              <Button
+                sx={{
+                  paddingX: 1.2,
+                  borderRadius: 2,
+                  
+                  // backgroundColor: '#eaeaeb',
+                }}
+                className="flex flex-1 justify-start"
+                disabled={true}
+                // onClick={() => {
+                //   dispatch(getProjects()); // Llamada a la acción getProjects para obtener los proyectos
+                //   console.log('1');
+                // }}
+              >
+                <SnippetFolderOutlinedIcon sx={{ fontSize: '26px' }} />
+                <Typography variant="body1" color="initial" marginLeft={2}>
+                  {t('Baja')}
+                </Typography>
+              </Button>
+            </Stack>
+
+            {/* {filters.length > 0 &&
               filters.map((filter) => (
                 <StyledListItem
                   button
@@ -118,12 +170,12 @@ function TodoSidebarContent() {
                   activeClassName="active"
                   key={filter.id}
                 >
-                  <Icon className="list-item-icon" color="action" fontSize='50px'>
+                  <Icon className="list-item-icon" color="action" fontSize="50px">
                     {filter.icon}
                   </Icon>
                   <ListItemText primary={filter.title} disableTypography />
                 </StyledListItem>
-              ))}
+              ))} */}
           </List>
         </div>
       </Paper>

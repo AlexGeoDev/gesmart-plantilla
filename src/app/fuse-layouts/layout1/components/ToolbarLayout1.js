@@ -12,6 +12,7 @@ import { selectToolbarTheme } from 'app/store/fuse/settingsSlice';
 import FullScreenToggle from '../../shared-components/FullScreenToggle';
 import { Stack } from '@mui/material';
 import SelectProject from 'app/fuse-layouts/shared-components/SelectProject';
+import LanguageSwitcher from 'app/fuse-layouts/shared-components/LanguageSwitcher';
 
 function ToolbarLayout1(props) {
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
@@ -55,6 +56,8 @@ function ToolbarLayout1(props) {
             </div>
 
             <div className="flex items-center px-8 h-full overflow-x-auto">
+              <LanguageSwitcher />
+
               <FullScreenToggle />
               <UserMenu />
             </div>

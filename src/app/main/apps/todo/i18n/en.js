@@ -1,0 +1,27 @@
+const locale = {
+  Proyectos: "Projects",
+  NUEVO_PROYECTO: "NEW PROJECT",
+  Editar_Proyecto: "Edit Project",
+  ESTADO: "STATE",
+  Activos: "Active",
+  Baja: "Unactive",  
+  Buscar: "Search",
+  Nombre_del_proyecto: "Project name",
+  Ambito_Ubicacion: "Scope / Location",
+  Tipologia: "Typology",
+  Recogida: "Pickup",
+  Limpieza: "Cleanup",
+  Recogida_Limpieza: "Pickup & Cleanup",
+  Zonas_verdes_jardineria: "Green areas & Gardening",
+  Notas: "Notes",
+  Usuarios: "Users",
+  Estado: "State",
+  Agregar: "Add",
+  Guardar: "Save",
+  Confirmar_eliminacion: "Confirm deletion",
+  Estas_seguro: "Are you sure you want to delete the project?",
+  Aceptar: "Accept",
+  Cancelar: "Cancel",
+};
+
+export default locale;

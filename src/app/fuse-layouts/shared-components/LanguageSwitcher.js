@@ -1,18 +1,17 @@
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { changeLanguage } from 'app/store/i18nSlice';
 
 const languages = [
-  { id: 'en', title: 'English', flag: 'us' },
-  { id: 'tr', title: 'Turkish', flag: 'tr' },
-  { id: 'ar', title: 'Arabic', flag: 'sa' },
+  { id: 'es', title: 'Español', flag: 'es' },
+  { id: 'en', title: 'English', flag: 'en' },
+  { id : 'fr', title: 'Français', flag: 'fr'},
 ];
 
 function LanguageSwitcher(props) {
@@ -33,7 +32,6 @@ function LanguageSwitcher(props) {
 
   function handleLanguageChange(lng) {
     dispatch(changeLanguage(lng.id));
-
     langMenuClose();
   }
 
@@ -79,15 +77,6 @@ function LanguageSwitcher(props) {
             <ListItemText primary={lng.title} />
           </MenuItem>
         ))}
-
-        <MenuItem
-          component={Link}
-          to="/documentation/configuration/multi-language"
-          onClick={langMenuClose}
-          role="button"
-        >
-          <ListItemText primary="Learn More" />
-        </MenuItem>
       </Popover>
     </>
   );

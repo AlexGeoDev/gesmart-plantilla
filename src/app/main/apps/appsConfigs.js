@@ -1,5 +1,4 @@
 import AppsDialogConfig from './AppsDialogConfig';
-import AcademyAppConfig from './academy/AcademyAppConfig';
 import CalendarAppConfig from './calendar/CalendarAppConfig';
 import CartografiaAppConfig from './cartografia/CartografiaAppConfig';
 import ChatAppConfig from './chat/ChatAppConfig';
@@ -32,7 +31,6 @@ const appsConfigs = [
   ChatAppConfig,
   ECommerceAppConfig,
   ScrumboardAppConfig,
-  AcademyAppConfig,
   NotesAppConfig,
   VrpAppConfig,
   ZonificacionAppConfig,

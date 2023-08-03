@@ -31,14 +31,10 @@ import {
 } from './store/todosSlice';
 import { Select } from '@mui/material';
 import { CookieRounded } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 
-const options = [
-  { value: 'Recogida' },
-  { value: 'Limpieza' },
-  { value: 'Recogida y Limpieza' },
-  { value: 'Zonas verdes y Jardinería' }
-];
+
 
 const defaultValues = {
   id: '',
@@ -62,7 +58,14 @@ function TodoDialog(props) {
   const todoDialog = useSelector(({ todoApp }) => todoApp.todos.todoDialog);
   const labels = useSelector(selectLabels);
   const [labelMenuEl, setLabelMenuEl] = useState(null);
-  
+  const { t } = useTranslation('projectsApp');
+
+  const options = [
+    { value: t('Recogida') },
+    { value: t('Limpieza') },
+    { value: t('Recogida_Limpieza') },
+    { value: t('Zonas_verdes_jardineria') }
+  ];
 
   const { watch, handleSubmit, formState, reset, control, setValue } = useForm({
     mode: 'onChange',
@@ -186,7 +189,7 @@ function TodoDialog(props) {
       <AppBar position="static" elevation={0} sx={{backgroundColor: '#ffffff'}}>
         <Toolbar className="flex w-full">
           <Typography variant="subtitle1" color="#000000">
-            {todoDialog.type === 'new' ? 'Nuevo Proyecto' : 'Editar Proyecto'}
+            {todoDialog.type === 'new' ? `${t('NUEVO_PROYECTO')}` : `${t('Editar_Proyecto')}`}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -200,7 +203,7 @@ function TodoDialog(props) {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Nombre de proyecto"
+                    label={t("Nombre_del_proyecto")}
                     autoFocus
                     error={!!errors.name}
                     helperText={errors?.name?.message}
@@ -236,7 +239,7 @@ function TodoDialog(props) {
                 render={({ field }) => (
                   <TextField 
                     {...field} 
-                    label="Ámbito / Ubicación"  
+                    label={t('Ambito_Ubicacion')}
                     variant="outlined" 
                   />
                 )}
@@ -245,7 +248,7 @@ function TodoDialog(props) {
 
             <div>
               <Typography variant="body1" color="initial">
-                Tipología
+                {t('Tipologia')}
               </Typography>
               <Controller
                 name="scope"
@@ -275,7 +278,7 @@ function TodoDialog(props) {
                 render={({ field }) => (
                   <TextField 
                     {...field} 
-                    label="Notes" 
+                    label={t("Notas")}
                     multiline 
                     rows="6" 
                     variant="outlined"
@@ -285,7 +288,7 @@ function TodoDialog(props) {
             </FormControl>
 
             <Typography variant="body1" color="initial">
-              Usuarios
+              {t('Usuarios')}
             </Typography>
             <Controller 
               name='usuarios'
@@ -319,7 +322,7 @@ function TodoDialog(props) {
             <div className="mb-16">
                 <div className="flex items-center">
                 <Typography variant="body1" color="initial">
-                  Estado
+                  {t('Estado')}
                 </Typography>
                   <Controller
                     name="active"
@@ -353,7 +356,7 @@ function TodoDialog(props) {
                 color="secondary"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Agregar
+                {t('Agregar')}
               </Button>
             </div>
           </DialogActions>
@@ -366,7 +369,7 @@ function TodoDialog(props) {
                 color="secondary"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Guardar
+                {t('Guardar')}
               </Button>
             </div>
             <IconButton className="min-w-auto" onClick={handleRemove}>
@@ -381,18 +384,20 @@ function TodoDialog(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Confirmar eliminación</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+        {t('Confirmar_eliminacion')}
+        </DialogTitle>
         <DialogContent>
           <Typography variant="body1" color="initial">
-            ¿Estás seguro de que deseas eliminar el proyecto?
+            {t('Estas_seguro')}
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDelete} color="secondary" autoFocus>
-            Aceptar
+            {t('Aceptar')}
           </Button>
           <Button onClick={hideDialog} color="primary">
-            Cancelar
+            {t('Cancelar')}
           </Button>
       </DialogActions>
       </Dialog>

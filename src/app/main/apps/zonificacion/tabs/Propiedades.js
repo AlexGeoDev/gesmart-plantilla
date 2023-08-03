@@ -14,6 +14,7 @@ import {
   RadioGroup,
   Radio
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const RoundButton = styled(Button)({
   background: '#fe7042',
@@ -29,6 +30,7 @@ function Propiedades(props) {
   const { control, formState: { errors } } = props;
   const [selectedCalculationType, setSelectedCalculationType] = useState('zonas');
   const [disabled, setDisabled] = useState(true);
+  const { t } = useTranslation('frecuenciasApp')
 
   const handleClick = () => {
     setDisabled(!disabled);
@@ -67,7 +69,7 @@ function Propiedades(props) {
               error={!!errors?.name}
               required
               helperText={errors?.name?.message}
-              label="Nombre de zonificación"
+              label={t('Nombre_zonificacion')}
               autoFocus
               id="name"
               variant="outlined"
@@ -83,8 +85,8 @@ function Propiedades(props) {
             <TextField
               {...field}
               className="mt-8 mb-16"
-              id="description"
-              label="Descripción"
+              id="Descripción"
+              label={t('Descripcion')}
               type="text"
               variant="outlined"
               fullWidth
@@ -94,7 +96,7 @@ function Propiedades(props) {
 
         <Stack direction='row' className='flex flex-1 items-center mt-8 mb-16'>
           <Typography variant="body1" color="initial" sx={{ width: '150px' }}>
-            Cartografía de cálculo
+            {t('Cartografia_calculo')}
           </Typography>
           <Controller
             name="selectOption1"
@@ -119,7 +121,7 @@ function Propiedades(props) {
 
         <Stack direction='row' className='flex flex-1 items-center mt-8 mb-16'>
           <Typography variant="body1" color="initial" sx={{ width: '150px' }}>
-            tipologías de bordillo
+            {t('Tipologias_bordillo')}
           </Typography>
           <Controller
             name="selectOption2"
@@ -144,7 +146,7 @@ function Propiedades(props) {
 
         <Stack direction='column' className='flex mt-8 mb-16'>
           <Typography variant="body1" color="initial">
-            Tipo de cálculo:
+            {t('Tipo_calculo')}
           </Typography>
 
           <FormControl className='p-10'>
@@ -162,7 +164,7 @@ function Propiedades(props) {
           <Stack direction='row' className='flex justify-start mt-8 mb-16 pl-10'>
             <Stack direction='row' spacing={3} className='flex items-center'>
               <Typography variant="body1" color="initial">
-                Número de zonas:
+                {t('Numero_zonas')}
               </Typography>
               <Stack direction='row' spacing={2} alignItems='center'>
                 <RoundButton onClick={handleLessZones}>
@@ -181,7 +183,7 @@ function Propiedades(props) {
             <Stack direction='row' className='flex justify-start mt-8 mb-16 pl-10'>
               <Stack direction='row' spacing={3} className='flex items-center'>
                 <Typography variant="body1" color="initial">
-                  Área máxima (m2):
+                  {t('Area_maxima')} (m2):
                 </Typography>
                 <Stack direction='row' spacing={2} alignItems='center'>
                   <RoundButton onClick={handleLessArea}>
@@ -199,7 +201,7 @@ function Propiedades(props) {
 
         <Stack spacing={3} direction='row' alignItems='center'>
           <Typography variant="body1" color="initial">
-            Estado:
+            {t('Estado')}:
           </Typography>
           <TextField id="outlined-basic" label='Sin estado' variant="outlined" sx={{ width: '200px' }} />
           <Button
@@ -212,7 +214,7 @@ function Propiedades(props) {
             }}
             onClick={handleClick}
           >
-            PROCESAR
+            {t('PROCESAR')}
           </Button>
         </Stack>
       </div>

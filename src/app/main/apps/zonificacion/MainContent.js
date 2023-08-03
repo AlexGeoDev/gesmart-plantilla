@@ -108,7 +108,7 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
             header={
               <ZonificacionHeader pageLayout={pageLayout} onNuevoClick={handleNuevoClick} />
             }
-            contentToolbar={
+            contentToolbar={showTabs && (
               <Tabs
                 value={tabValue}
                 onChange={handleTabChange}
@@ -122,8 +122,8 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
                 <Tab key="areatab" className="h-64" label="Área de cálculo" />
                 <Tab key="resulttab" className="h-64" label="Resultado" />
               </Tabs>
-            }
-            content={
+            )}
+            content={showTabs && (
               <div className="p-16 sm:p-24 max-w-2xl">
                 {showTabs && tabValue === 0 && (
                   <Propiedades control={control} formState={formState} />
@@ -135,7 +135,7 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
                   <Resultado control={control} formState={formState} />
                 )}
               </div>
-            }
+            )}
           />
         </Stack>
       </Stack>

@@ -11,10 +11,12 @@ import {
   Select,
   Stack,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function Propiedades(props) {
   const { control, formState: { errors } } = props;
   const [disabled, setDisabled] = useState(true);
+  const { t } = useTranslation('frecuenciasApp');
 
   const handleClick = () => {
     setDisabled(!disabled);
@@ -33,7 +35,7 @@ function Propiedades(props) {
               error={!!errors?.name}
               required
               helperText={errors?.name?.message}
-              label="Nombre del análisis de frecuencias"
+              label={t('Analisis')}
               autoFocus
               id="name"
               variant="outlined"
@@ -50,7 +52,7 @@ function Propiedades(props) {
               {...field}
               className="mt-8 mb-16"
               id="description"
-              label="Descripción"
+              label={t('Descripcion')}
               type="text"
               variant="outlined"
               fullWidth
@@ -60,7 +62,7 @@ function Propiedades(props) {
 
         <Stack direction='row' className='flex flex-1 items-center mt-8 mb-16'>
           <Typography variant="body1" color="initial" sx={{ width: '150px' }}>
-            Cartografía de cálculo
+            {t('Cartografia_calculo')}
           </Typography>
           <Controller
             name="selectOption1"
@@ -85,7 +87,7 @@ function Propiedades(props) {
 
         <Stack spacing={3} direction='row' alignItems='center'>
           <Typography variant="body1" color="initial">
-            Estado:
+            {t('Estado')}:
           </Typography>
           <TextField id="outlined-basic" label='Sin estado' variant="outlined" sx={{ width: '200px' }} />
           <Button

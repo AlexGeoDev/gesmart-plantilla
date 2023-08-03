@@ -10,13 +10,7 @@ const CartografiaApp = () => {
       }}>
         <Typography variant="h3" color="initial" className='flex justify-center'>
           Cartografía en construcción
-        </Typography>
-        <div className='flex justify-center mt-20'>
-          <img 
-            width='70%'
-            src="assets/images/backgrounds/construyendo.jpg" 
-            alt="Imagen describe un sitio en cosntrucción" />
-        </div>        
+        </Typography>      
       </Container>
     </>
   )

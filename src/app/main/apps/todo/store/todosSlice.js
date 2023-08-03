@@ -15,6 +15,20 @@ export const getProjects = createAsyncThunk(
   }
 );
 
+// Mostrar los proyectos con "active: true"
+export const getProjectsActive = createAsyncThunk(
+  'getProjectsActive',
+  async (routeParams, { getState }) => {
+    routeParams = routeParams || getState().todoApp.todos.routeParams;
+    const response = await axios.get('/project', {
+      params: { ...routeParams, active: false }
+    });
+    const data = await response.data;
+
+    return  { data, routeParams};
+  }
+);
+
 export const addTodo = createAsyncThunk(
   'addProject',
   async (todo, { dispatch, getState }) => {

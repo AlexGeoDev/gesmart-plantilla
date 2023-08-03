@@ -1,0 +1,27 @@
+const locale = {
+  Proyectos: "Projets",
+  NUEVO_PROYECTO: "NOUVEAU PROJET",
+  Editar_Proyecto: "Editer le projet",
+  ESTADO: "STATUT",
+  Activos: "Actifs",
+  Baja: "Inactif",
+  Buscar: "Recherche",
+  Nombre_del_proyecto: "Nom du projet",
+  Ambito_Ubicacion: "Champ d'application / Emplacement",
+  Tipologia: "Typologie",
+  Recogida: "Collection",
+  Limpieza: "Nettoyage",
+  Recogida_Limpieza: "Collecte et Nettoyage",
+  Zonas_verdes_jardineria: "Espaces verts et Jardinage",
+  Notas: "Notes",
+  Usuarios: "Utilisateurs",
+  Estado: "État",
+  Agregar: "Ajouter",
+  Guardar: "Économiser",
+  Confirmar_eliminacion: "Confirmer la suppression",
+  Estas_seguro: "Êtes-vous sûr de vouloir supprimer le projet ?",
+  Aceptar: "Accepter",
+  Cancelar: "Annuler",
+};
+
+export default locale;

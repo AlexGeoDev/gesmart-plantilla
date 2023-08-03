@@ -10,11 +10,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import { setTodosSearchText } from './store/todosSlice';
+import { useTranslation } from 'react-i18next';
 
 function TodoHeader(props) {
   const dispatch = useDispatch();
   const searchText = useSelector(({ todoApp }) => todoApp.todos.searchText);
   const mainTheme = useSelector(selectMainTheme);
+  const { t } = useTranslation('projectsApp')
 
   return (
     <div className="flex flex-1 items-center justify-between p-4 sm:p-24">
@@ -40,7 +42,7 @@ function TodoHeader(props) {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Proyectos
+            {t('Proyectos')}
           </Typography>
         </div>
       </div>
@@ -57,7 +59,8 @@ function TodoHeader(props) {
               <Icon color="action">search</Icon>
 
               <Input
-                placeholder="Buscar"
+                // placeholder="Buscar
+                placeholder={t('Buscar')}
                 className="px-16"
                 disableUnderline
                 fullWidth
