@@ -27,6 +27,7 @@ import {
   closeEditContactDialog,
 } from './store/contactsSlice';
 import { Autocomplete, Chip, MenuItem, Select } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const defaultValues = {
   id: '',
@@ -43,14 +44,10 @@ const defaultValues = {
   // notes: '',
 };
 
-const options = [
-  { value: 'Administrador' },
-  { value: 'Usuario' },
-];
 
 /**
  * Form Validation Schema
- */
+*/
 const schema = yup.object().shape({
   name: yup.string().required('You must enter a name'),
 });
@@ -59,6 +56,12 @@ function ContactDialog(props) {
   const dispatch = useDispatch();
   const contactDialog = useSelector(({ contactsApp }) => contactsApp.contacts.contactDialog);
   const [isOpen, setIsOpen] = useState(true);
+  const { t } = useTranslation('contactsApp');
+  
+  const options = [
+    { value: t('Administrador') },
+    { value: t('Usuario') },
+  ];
 
   const handleClose = () => {
     setIsOpen(false);
@@ -150,7 +153,7 @@ function ContactDialog(props) {
       <AppBar position="static" elevation={0} sx={{backgroundColor: '#ffffff'}}>
         <Toolbar className="flex w-full">
           <Typography variant="h4" color="#000000" sx={{mt:1}}>
-            {contactDialog.type === 'new' ? 'Nuevo usuario' : 'Edit Contact'}
+            {contactDialog.type === 'new' ? `${t('NUEVO_USUARIO')}` : `${t('EDITAR_USUARIO')}` }
           </Typography>
         </Toolbar>
       </AppBar>
@@ -168,7 +171,7 @@ function ContactDialog(props) {
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Nombre de usuario"
+                  label={t('Nombre_usuario')}
                   id="name"
                   error={!!errors.name}
                   helperText={errors?.name?.message}
@@ -199,7 +202,7 @@ function ContactDialog(props) {
 
           <div className="flex flex-col">
             <Typography variant="body1" color="initial" sx={{mb:1}}>
-              Perfil
+              {t('Perfil')}
             </Typography>
             <Controller
               name="perfil"
@@ -223,7 +226,7 @@ function ContactDialog(props) {
 
           <div>
             <Typography variant="body1" color="initial" sx={{my:1}}>
-              Proyectos
+              {t('Proyectos')}
             </Typography>
             <Controller 
               name='projects'
@@ -258,7 +261,7 @@ function ContactDialog(props) {
           <div className="mb-16">
               <div className="flex items-center justify-start p-12">
                 <Typography variant="body1" color="initial">
-                  Estado
+                  {t('Estado')}
                 </Typography>
                 <div className="flex">
                   <Controller
@@ -293,7 +296,7 @@ function ContactDialog(props) {
                 type="submit"
                 disabled={_.isEmpty(dirtyFields) || !isValid}
               >
-                Aceptar
+                {t('Aceptar')}
               </Button>
             </div>
             <div className="px-16">
@@ -304,7 +307,7 @@ function ContactDialog(props) {
                 disabled={false}
                 onClick={(ev) => dispatch(closeComposeDialog())}
               >
-                Cancelar
+                {t('Cancelar')}
               </Button>
             </div>
           </DialogActions>

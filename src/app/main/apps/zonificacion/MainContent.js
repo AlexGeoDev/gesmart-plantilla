@@ -14,6 +14,7 @@ import { IconButton, Stack } from '@mui/material';
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import ZonificacionSidebar from './ZonificacionSidebar';
+import { useTranslation } from 'react-i18next';
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   bottom: '55px',
@@ -52,6 +53,7 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
   const [showTabs, setShowTabs] = useState(false);
   const [isViewQuiltActive, setIsViewQuiltActive] = useState(false);
   const [isDateRangeActive, setIsDateRangeActive] = useState(false);
+  const { t } = useTranslation('zonificacionApp');
   // const [panelOpen, setPanelOpen] = useState(true);
 
   const togglePanel = () => {
@@ -118,9 +120,9 @@ const MainContent = ({panelOpen, setPanelOpen}) => {
                 scrollButtons="auto"
                 classes={{ root: 'w-full h-64' }}
               >
-                <Tab key="propertiestab" className="h-64" label="Propiedades" />
-                <Tab key="areatab" className="h-64" label="Área de cálculo" />
-                <Tab key="resulttab" className="h-64" label="Resultado" />
+                <Tab key="propertiestab" className="h-64" label={t('PROPIEDADES')} />
+                <Tab key="areatab" className="h-64" label={t('AREA_CALCULO')} />
+                <Tab key="resulttab" className="h-64" label={t('RESULTADO')} />
               </Tabs>
             )}
             content={showTabs && (

@@ -22,6 +22,9 @@ const RoundButton = styled(Button)({
   borderRadius: '50%',
   minWidth: '34px',
   height: '34px',
+  '&:hover': {
+    backgroundColor: '#fe4a0f',
+  }
 });
 
 function Propiedades(props) {
@@ -30,7 +33,7 @@ function Propiedades(props) {
   const { control, formState: { errors } } = props;
   const [selectedCalculationType, setSelectedCalculationType] = useState('zonas');
   const [disabled, setDisabled] = useState(true);
-  const { t } = useTranslation('frecuenciasApp')
+  const { t } = useTranslation('zonificacionApp')
 
   const handleClick = () => {
     setDisabled(!disabled);
@@ -155,8 +158,8 @@ function Propiedades(props) {
               value={selectedCalculationType}
               onChange={handleCalculationTypeChange}
             >
-              <FormControlLabel value="zonas" control={<Radio />} label="Número de zonas"/>
-              <FormControlLabel value="area" control={<Radio />} label="Área máxima"/>
+              <FormControlLabel value="zonas" control={<Radio />} label={t('Numero_zonas')}/>
+              <FormControlLabel value="area" control={<Radio />} label={t('Area_maxima')}/>
             </RadioGroup>
           </FormControl>
           

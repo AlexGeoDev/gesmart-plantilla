@@ -10,11 +10,13 @@ import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import { setContactsSearchText } from './store/contactsSlice';
+import { useTranslation } from 'react-i18next';
 
 function ContactsHeader(props) {
   const dispatch = useDispatch();
   const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
   const mainTheme = useSelector(selectMainTheme);
+  const { t } = useTranslation('contactsApp');
 
   return (
     <div 
@@ -42,7 +44,7 @@ function ContactsHeader(props) {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Usuarios
+            {t('Usuarios')}
           </Typography>
         </div>
       </div>
@@ -58,7 +60,7 @@ function ContactsHeader(props) {
             <Icon color="action">search</Icon>
 
             <Input
-              placeholder="Buscar"
+              placeholder={t('Buscar')}
               className="flex flex-1 px-16"
               disableUnderline
               fullWidth

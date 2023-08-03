@@ -5,9 +5,9 @@ import es from './i18n/es';
 import fr from './i18n/fr';
 import i18next from 'i18next';
 
-i18next.addResourceBundle('en', 'frecuenciasApp', en);
-i18next.addResourceBundle('es', 'frecuenciasApp', es);
-i18next.addResourceBundle('fr', 'frecuenciasApp', fr);
+i18next.addResourceBundle('en', 'zonificacionApp', en);
+i18next.addResourceBundle('es', 'zonificacionApp', es);
+i18next.addResourceBundle('fr', 'zonificacionApp', fr);
 
 const ZonificacionAppConfig = {
   settings: {

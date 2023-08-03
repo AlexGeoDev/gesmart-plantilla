@@ -4,6 +4,9 @@ const locale = {
   EDITAR: "EDIT",
   GUARDAR: "SAVE",
   CANCELAR: "CANCEL",
+  PROPIEDADES: "PROPERTIES",
+  AREA_CALCULO: "CALCULATION AREA",
+  RESULTADO: "RESULT",
   ZONIFICACIONES: "ZONIFICATIONS",
   Nombre_zonificacion: "Zoning name",
   Descripcion: "Description",
@@ -14,6 +17,7 @@ const locale = {
   Area_maxima: "Maximum area",
   Estado: "State",
   PROCESAR: "PROCESS",
+  COLA_ZONIFICACIONES: "ZONING QUEUE",
 };
 
 export default locale;

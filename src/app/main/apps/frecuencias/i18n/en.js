@@ -12,6 +12,7 @@ const locale = {
   Descripcion: "Description",
   Cartografia_calculo: "Calculation mapping",
   Estado: "State",
+  COLA_FRECUENCIAS: "FREQUENCY QUEUE",
 };
 
 export default locale;

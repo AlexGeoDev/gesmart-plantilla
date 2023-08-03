@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { logoutUser } from 'app/auth/store/userSlice';
 import ZonificacionApp from 'app/main/apps/zonificacion/ZonificacionApp';
+import { useTranslation } from 'react-i18next';
 
 const UserMenu = () => {
   const [userMenu, setUserMenu] = useState(null);
@@ -18,6 +19,7 @@ const UserMenu = () => {
   const user = useSelector(({ auth }) => auth.user);
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation('fuseApp');
 
   const userMenuClick = (event) => {
     setUserMenu(event.currentTarget);
@@ -56,7 +58,7 @@ const UserMenu = () => {
           )}
           {user.role && user.role.length > 0 ? (
             <Typography className="text-11 font-medium capitalize" color="textSecondary">
-              {user.role.toString()}
+              {t(user.role.toString())}
             </Typography>
           ) : null}
         </div>
@@ -108,13 +110,13 @@ const UserMenu = () => {
               <ListItemIcon className="min-w-40">
                 <Icon>work_outline</Icon>
               </ListItemIcon>
-              <ListItemText primary="Proyectos" />
+              <ListItemText primary={t('Proyectos')} />
             </MenuItem>
             <MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <Icon>mail</Icon>
               </ListItemIcon>
-              <ListItemText primary="Correo" />
+              <ListItemText primary={t('Correo')} />
             </MenuItem>
             <MenuItem
               component={Link}
@@ -127,7 +129,7 @@ const UserMenu = () => {
               <ListItemIcon className="min-w-40">
                 <Icon>exit_to_app</Icon>
               </ListItemIcon>
-              <ListItemText primary="Salir" />
+              <ListItemText primary={t('Salir')} />
             </MenuItem>
           </>
         )}

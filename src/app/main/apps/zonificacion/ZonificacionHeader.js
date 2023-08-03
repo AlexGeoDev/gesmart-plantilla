@@ -108,19 +108,19 @@ const StyledIcon = styled(Icon)(({ theme }) => ({
   },
 }));
 
-const ColorButton = styled(Button)(({ theme, isEnabled, isCancel }) => ({
-  backgroundColor: isEnabled ? (isCancel ? '#ff5c54' : '#93d36f') : '#939392',
+const ColorButton = styled(Button)(({ theme, isEnabled, isCancelar }) => ({
+  backgroundColor: isEnabled ? (isCancelar ? '#ff5c54' : '#93d36f') : '#939392',
   color: '#fff',
-  border: '1px solid black',
+  border: '0.5px solid black',
   borderRadius: 4,
   '&:hover': {
-    backgroundColor: isEnabled ? (isCancel ? '#ff0000' : '#84b42d') : '#939392',
+    backgroundColor: isEnabled ? (isCancelar ? '#ff0000' : '#84b42d') : '#939392',
   },
 }));
 
 const ZonificacionHeader = ({ onNuevoClick }) => {
   const theme = useTheme();
-  const { t } = useTranslation('frecuenciasApp');
+  const { t } = useTranslation('zonificacionApp');
 
   // Estado local para controlar la habilitación de los botones
   const [botonesHabilitados, setBotonesHabilitados] = useState({
@@ -193,7 +193,7 @@ const ZonificacionHeader = ({ onNuevoClick }) => {
             <ColorButton
               variant='contained'
               isEnabled={botonesHabilitados.cancelar}
-              isCancel
+              isCancelar
             >
               {t('CANCELAR')}
             </ColorButton>

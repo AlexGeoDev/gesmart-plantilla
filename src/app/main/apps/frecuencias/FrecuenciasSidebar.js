@@ -4,6 +4,7 @@ import { Divider, Stack } from '@mui/material';
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 let panelWidth = 400;
 
@@ -15,6 +16,8 @@ const StyledPanel = styled('div')(({ theme }) => ({
 }));
 
 const FrecuenciasSidebar = ({panelOpen, setPanelOpen}) => {
+  const { t } = useTranslation('frecuenciasApp');
+
   const handleTogglePanel = () => {
     setPanelOpen(false);
   };
@@ -26,7 +29,7 @@ const FrecuenciasSidebar = ({panelOpen, setPanelOpen}) => {
           <CloseIcon onClick={handleTogglePanel} sx={{position: 'relative', left: '0px'}}/>
           <Stack direction={'row'} className='flex flex-1 justify-center items-center' spacing={2}>
             <Typography variant="h6" color="initial">
-              COLA DE FRECUENCIAS
+              {t('COLA_FRECUENCIAS')}
             </Typography>
             <ViewQuiltIcon />
           </Stack>

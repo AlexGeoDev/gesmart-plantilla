@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { openNewContactDialog } from './store/contactsSlice';
-
+import { useTranslation } from 'react-i18next';
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({
   color: 'inherit!important',
@@ -40,17 +40,8 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 }));
 
 function ContactsSidebarContent(props) {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector(({ contactsApp }) => contactsApp.user);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
+  const { t } = useTranslation('contactsApp');
   const dispatch = useDispatch();
 
   return (
@@ -69,7 +60,7 @@ function ContactsSidebarContent(props) {
             className="w-full"
             onClick={(ev) => dispatch(openNewContactDialog())}
           >
-            NUEVO USUARIO
+            {t('NUEVO_USUARIO')}
           </Button>
         </div>
 
@@ -83,10 +74,10 @@ function ContactsSidebarContent(props) {
             <Icon className="list-item-icon text-16" color="action">
               menu
             </Icon>
-            <ListItemText className="truncate flex justify-center" primary="Todos" disableTypography />
+            <ListItemText className="truncate flex justify-center" primary={t('Todos')} disableTypography />
           </StyledListItem>
           <Typography variant="body1" color="initial" sx={{mt: 2}}>
-            ESTADO
+            {t('ESTADO')}
           </Typography>
           
           <StyledListItem
@@ -98,7 +89,7 @@ function ContactsSidebarContent(props) {
             <Icon className="list-item-icon text-16" color="action">
               how_to_reg
             </Icon>
-            <ListItemText className="truncate" primary="Activos" disableTypography />
+            <ListItemText className="truncate" primary={t('Activos')} disableTypography />
           </StyledListItem>
         
           <StyledListItem
@@ -110,11 +101,11 @@ function ContactsSidebarContent(props) {
             <Icon className="list-item-icon text-16" color="action">
               person_add_disabled
             </Icon>
-            <ListItemText className="truncate" primary="Baja" disableTypography />
+            <ListItemText className="truncate" primary={t('Baja')} disableTypography />
           </StyledListItem>
 
           <Typography variant="body1" color="initial" sx={{mt: 2}}>
-            PERFIL
+            {t('PERFIL')}
           </Typography>
           <StyledListItem
             button
@@ -122,7 +113,7 @@ function ContactsSidebarContent(props) {
             to="/apps/contacts/frequent"
             activeClassName="active"
           >
-            <ListItemText className="truncate" primary="Administrador" disableTypography />
+            <ListItemText className="truncate" primary={t('Administrador')} disableTypography />
           </StyledListItem>
           <StyledListItem
             button
@@ -130,7 +121,7 @@ function ContactsSidebarContent(props) {
             to="/apps/contacts/starred"
             activeClassName="active"
           >
-            <ListItemText className="truncate" primary="Usuario" disableTypography />
+            <ListItemText className="truncate" primary={t('Usuario')} disableTypography />
           </StyledListItem>
         </List>
       </Paper>
